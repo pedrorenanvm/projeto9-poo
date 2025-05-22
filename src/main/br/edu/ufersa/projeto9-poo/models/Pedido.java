@@ -4,16 +4,14 @@ public class Pedido {
     private int id;
     private LocalDate data;
     private Cliente cliente;
-    // TODO: adicionar o `private ProdutoPedido[] itens` depois que o ProdutoPedido for implementado
-    // SE POSSIVEL: Trocar para enum no futuro
-    private String pagamento;
-    // SE POSSIVEL: Trocar para enum no futuro
-    private String estado;
+    private ProdutoPedido[] itens;
+    private TipoPagamento pagamento;
+    private TipoEstado estado;
 
     public Pedido() {
     }
 
-    public Pedido(int id, LocalDate data, Cliente cliente, String pagamento, String estado) {
+    public Pedido(int id, LocalDate data, Cliente cliente, TipoPagamento pagamento, TipoEstado estado) {
         setId(id);
         setData(data);
         setCliente(cliente);
@@ -22,8 +20,11 @@ public class Pedido {
     }
 
     public long precoTotal() {
-        // TODO: implementar essa função depois que o ProdutoPedido for implementado
-        return 0;
+        long soma = 0;
+        for (ProdutoPedido item : itens) {
+            soma += item.precoTotal();
+        }
+        return soma;
     }
 
     public void gerarNota() {
@@ -83,23 +84,39 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public String getPagamento() {
+    public ProdutoPedido[] getItens() {
+        return itens;
+    }
+
+    public void setItens(ProdutoPedido[] itens) {
+        if (itens == null || itens.length == 0) {
+            return;
+        }
+        for (ProdutoPedido item : itens) {
+            if (item == null) {
+                return;
+            }
+        }
+        this.itens = itens;
+    }
+
+    public TipoPagamento getPagamento() {
         return pagamento;
     }
 
-    public void setPagamento(String pagamento) {
-        if (pagamento == null || pagamento.isEmpty()) {
+    public void setPagamento(TipoPagamento pagamento) {
+        if (pagamento == null) {
             return;
         }
         this.pagamento = pagamento;
     }
 
-    public String getEstado() {
+    public TipoEstado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
-        if (estado == null || estado.isEmpty()) {
+    public void setEstado(TipoEstado estado) {
+        if (estado == null) {
             return;
         }
         this.estado = estado;
