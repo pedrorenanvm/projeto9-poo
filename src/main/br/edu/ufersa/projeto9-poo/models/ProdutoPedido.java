@@ -11,8 +11,8 @@ public class ProdutoPedido{
         setPrecoUnidade(precoUnidade);
     }
 
-    public long precototal(long pU,int q){
-        return pU*q;
+    public long precoTotal(){
+        return this.quantidade*this.precoUnidade;
     }
 
     public void setQuantidade(int q){
