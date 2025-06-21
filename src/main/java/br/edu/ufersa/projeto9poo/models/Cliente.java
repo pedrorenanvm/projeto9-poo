@@ -1,38 +1,41 @@
 package br.edu.ufersa.projeto9poo.models;
 
+import jakarta.persistence.*;
+
+import java.util.Objects;
+
+@Entity
+@Table(name = "clientes")
+
 public class Cliente {
-    private Integer id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 100)
     private String nome;
+
+    @Column(nullable = false, unique = true, length = 50)
     private String endereco;
+
+    @Column(nullable = false, length = 150)
     private String telefone;
 
-    public Cliente(Integer id, String nome, String endereco, String telefone) {
+    public Cliente() {}
+
+    public Cliente(Long id, String nome, String endereco, String telefone) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
     }
-    public void cadastrar(String nome, String endereco, String telefone){
-        System.out.println("Cadastrando cliente: " + nome);
-    }
 
-    public void editar(Integer id, String nome, String endereco, String telefone){
-        System.out.println("Atualizando cliente: " + nome);
-    }
-
-    public void deletar(Integer id, String nome){
-        System.out.println("Removendo cliente: " + nome);
-    }
-
-    public void buscar(String nome){
-        System.out.println("Buscando cliente: " + nome);
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,5 +61,17 @@ public class Cliente {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(id, cliente.id) && Objects.equals(nome, cliente.nome) && Objects.equals(endereco, cliente.endereco) && Objects.equals(telefone, cliente.telefone);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, endereco, telefone);
     }
 }
