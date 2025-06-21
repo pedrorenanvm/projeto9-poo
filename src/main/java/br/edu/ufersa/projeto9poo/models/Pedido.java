@@ -1,13 +1,32 @@
 package br.edu.ufersa.projeto9poo.models;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "pedido")
 public class Pedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
     private LocalDate data;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private ProdutoPedido[] itens;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TipoPagamento pagamento;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TipoEstado estado;
 
     public Pedido() {
