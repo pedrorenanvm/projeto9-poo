@@ -1,3 +1,5 @@
+package br.edu.ufersa.projeto9poo.models;
+
 public class Adicional{
     private Integer id;
     private String nome;

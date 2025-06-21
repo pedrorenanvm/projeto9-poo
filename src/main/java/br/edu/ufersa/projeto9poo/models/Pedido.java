@@ -1,3 +1,5 @@
+package br.edu.ufersa.projeto9poo.models;
+
 import java.time.LocalDate;
 
 public class Pedido {

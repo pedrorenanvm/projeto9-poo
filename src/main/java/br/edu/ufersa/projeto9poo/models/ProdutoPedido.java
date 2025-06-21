@@ -1,3 +1,5 @@
+package br.edu.ufersa.projeto9poo.models;
+
 public class ProdutoPedido{
     private Produto produto;
     private Adicional adicional[];
