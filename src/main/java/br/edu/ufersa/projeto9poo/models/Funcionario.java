@@ -1,10 +1,22 @@
 package br.edu.ufersa.projeto9poo.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "funcionario")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "cargo", discriminatorType = DiscriminatorType.STRING, length = 25)
+@DiscriminatorValue("funcionario")
 public class Funcionario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false, unique = true, length = 50)
     private String usuario;
+
+    @Column(nullable = false, length = 50)
     private String senha;
-    private boolean admin;
 
     public Funcionario() {
     }
@@ -13,7 +25,6 @@ public class Funcionario {
         setId(id);
         setUsuario(usuario);
         setSenha(senha);
-        setAdmin(admin);
     }
 
     public boolean verificarSenha(String senha) {
@@ -78,13 +89,5 @@ public class Funcionario {
         }
         this.senha = senha;
 
-    }
-
-    public boolean isAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
     }
 }
