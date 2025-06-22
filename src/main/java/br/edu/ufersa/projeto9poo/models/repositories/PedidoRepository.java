@@ -1,6 +1,6 @@
 package br.edu.ufersa.projeto9poo.models.repositories;
 
-import br.edu.ufersa.projeto9poo.models.Pedido;
+import br.edu.ufersa.projeto9poo.models.entities.Pedido;
 
 import java.util.List;
 

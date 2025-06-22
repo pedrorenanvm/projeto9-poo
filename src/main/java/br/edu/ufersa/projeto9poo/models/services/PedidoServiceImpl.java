@@ -1,6 +1,6 @@
 package br.edu.ufersa.projeto9poo.models.services;
 
-import br.edu.ufersa.projeto9poo.models.Pedido;
+import br.edu.ufersa.projeto9poo.models.entities.Pedido;
 import br.edu.ufersa.projeto9poo.models.repositories.PedidoRepository;
 import br.edu.ufersa.projeto9poo.models.repositories.PedidoRepositoryImpl;
 

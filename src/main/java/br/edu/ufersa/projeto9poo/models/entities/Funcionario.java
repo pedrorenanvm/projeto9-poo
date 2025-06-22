@@ -1,4 +1,4 @@
-package br.edu.ufersa.projeto9poo.models;
+package br.edu.ufersa.projeto9poo.models.entities;
 
 import jakarta.persistence.*;
 

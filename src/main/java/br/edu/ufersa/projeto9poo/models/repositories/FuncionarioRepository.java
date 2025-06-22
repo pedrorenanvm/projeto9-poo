@@ -1,6 +1,6 @@
 package br.edu.ufersa.projeto9poo.models.repositories;
 
-import br.edu.ufersa.projeto9poo.models.Funcionario;
+import br.edu.ufersa.projeto9poo.models.entities.Funcionario;
 
 import java.util.List;
 
