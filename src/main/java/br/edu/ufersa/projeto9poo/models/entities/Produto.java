@@ -1,15 +1,14 @@
 package br.edu.ufersa.projeto9poo.models.entities;
 
-public class Produto {
+import jakarta.persistence.*;
+@Entity
+@Table(name="Produto")
+public class Produto extends Item{
 
-    private Integer id;
-    private String nome;
-    private Long preco;
-
-    public Produto(Integer id, String nome, Long preco) {
-        this.id = id;
-        this.nome = nome;
-        setPreco(preco);
+    public Produto(Integer id, String nome, long preco){
+        super(id);
+        super(nome);
+        super(preco);
     }
 
     public void cadastrar(String nome, Long preco){
@@ -33,15 +32,14 @@ public class Produto {
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        super(id);
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) super(nome);
     }
 
     public Long getPreco() {
@@ -52,7 +50,7 @@ public class Produto {
         if (preco < 0) {
             System.out.println("O preço do seu produto deve ser maior que zero");
         }else {
-            this.preco = preco;
+            super(preco);
         }
     }
 }

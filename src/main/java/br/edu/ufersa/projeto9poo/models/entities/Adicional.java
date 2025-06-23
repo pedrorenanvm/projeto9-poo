@@ -1,14 +1,14 @@
 package br.edu.ufersa.projeto9poo.models.entities;
 
-public class Adicional{
-    private Integer id;
-    private String nome;
-    private long preco;
+import jakarta.persistence.*;
 
-    public Adicional(int id, String nome, long preco){
-        this.id = id;
-        this.nome = nome;
-        setPreco(preco);
+@Entity
+@Table(name = "Adicional")
+public class Adicional extends Item{
+    public Adicional(Integer id, String nome, long preco){
+        super(id);
+        super(nome);
+        super(preco);
     }
     public void cadastrar(Integer id,String nome,long preco){
         System.out.println("Cadastrando adicional:");
@@ -41,7 +41,7 @@ public class Adicional{
     }
     public void setPreco(long preco){
         if (preco>0){
-            this.preco = preco;
+            super(preco);
         } else{
             System.out.println("Preço negativo,tente novamente");
         }
@@ -56,12 +56,10 @@ public class Adicional{
         return id;
     }
     public void setId(int id){
-        this.id = id;
+        super(id);
     }
     public void setNome(String nome){
-        this.nome = nome;
+        super(nome);
     }
 
-
-    
 }
