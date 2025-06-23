@@ -52,7 +52,7 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Erro ao editar funcionario", e);
+            throw new RuntimeException("Erro ao deletar funcionario", e);
         }
     }
 
