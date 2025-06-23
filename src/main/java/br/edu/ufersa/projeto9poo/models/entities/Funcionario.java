@@ -27,36 +27,6 @@ public class Funcionario {
         setSenha(senha);
     }
 
-    public boolean verificarSenha(String senha) {
-        // SE POSSIVEL: trocar a senha por um hash
-        return this.senha.equals(senha);
-    }
-
-    public void trocarSenha() {
-        System.out.println("Trocando senha");
-    }
-
-    public void resetarSenha() {
-        this.senha = "default";
-        System.out.println("Resetando a senha");
-    }
-
-    public void cadastrar() {
-        System.out.println("Cadastrando funcionario");
-    }
-
-    public void editar() {
-        System.out.println("Editando funcionario");
-    }
-
-    public void deletar() {
-        System.out.println("Deletando funcionario");
-    }
-
-    public void buscar() {
-        System.out.println("Buscando funcionario");
-    }
-
     public int getId() {
         return id;
     }

@@ -56,22 +56,6 @@ public class Pedido {
         System.out.println("Relatorio");
     }
 
-    public void cadastrar() {
-        System.out.println("Cadastrando Pedido");
-    }
-
-    public void editar() {
-        System.out.println("Editando Pedido");
-    }
-
-    public void deletar() {
-        System.out.println("Deletando Pedido");
-    }
-
-    public void buscar() {
-        System.out.println("Buscando Pedido");
-    }
-
     public int getId() {
         return id;
     }
