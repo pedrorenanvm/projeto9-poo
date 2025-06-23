@@ -5,10 +5,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Adicional")
 public class Adicional extends Item{
-    public Adicional(Integer id, String nome, long preco){
-        super(id);
-        super(nome);
-        super(preco);
+    public Adicional(Integer id, String nome, long preco,boolean estoque){
+        super(id, nome, preco, estoque);
     }
     public void cadastrar(Integer id,String nome,long preco){
         System.out.println("Cadastrando adicional:");
@@ -41,7 +39,7 @@ public class Adicional extends Item{
     }
     public void setPreco(long preco){
         if (preco>0){
-            super(preco);
+            super.setPreco(preco);
         } else{
             System.out.println("Preço negativo,tente novamente");
         }
@@ -56,10 +54,10 @@ public class Adicional extends Item{
         return id;
     }
     public void setId(int id){
-        super(id);
+        super.setId(id);
     }
     public void setNome(String nome){
-        super(nome);
+        super.setNome(nome);
     }
 
 }
