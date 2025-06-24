@@ -11,12 +11,30 @@ public class ClienteServiceImpl implements ClienteService{
     private final ClienteRepository repository = new ClienteRepositoryImpl();
     @Override
     public void cadastrar(Cliente cliente) {
+        Optional<Cliente> clienteExistente = repository.buscarTodos()
+                .stream()
+                .filter(c -> c.getTelefone().equals(cliente.getTelefone()))
+                .findFirst();
 
+        if(clienteExistente.isPresent()) {
+            throw new IllegalArgumentException("Já existe um cliente com esse telefone, tente outro!");
+        }
+
+        repository.cadastrar(cliente);
     }
 
     @Override
     public void editar(Cliente cliente) {
+        Optional<Cliente> clienteExistente = repository.buscarTodos()
+                .stream()
+                .filter(c -> c.getTelefone().equals(cliente.getTelefone()))
+                .findFirst();
 
+        if(clienteExistente.isPresent()) {
+            throw new IllegalArgumentException("Já existe um cliente com esse telefone, tente outro!");
+        }
+
+        repository.editar(cliente);
     }
 
     @Override
