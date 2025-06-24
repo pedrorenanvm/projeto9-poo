@@ -33,7 +33,7 @@ public class Funcionario {
 
     public void setId(int id) {
         if (id < 0) {
-            return;
+            throw new IllegalArgumentException("O id não pode ser negativo");
         }
         this.id = id;
     }
@@ -44,7 +44,7 @@ public class Funcionario {
 
     public void setUsuario(String usuario) {
         if (usuario == null || usuario.isEmpty()) {
-            return;
+            throw new IllegalArgumentException("O usuario não pode está vazio");
         }
         this.usuario = usuario;
     }
@@ -55,7 +55,7 @@ public class Funcionario {
 
     public void setSenha(String senha) {
         if (senha == null || senha.isEmpty()) {
-            return;
+            throw new IllegalArgumentException("A senha não pode está vazio");
         }
         this.senha = senha;
 

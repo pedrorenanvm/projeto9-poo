@@ -62,7 +62,7 @@ public class Pedido {
 
     public void setId(int id) {
         if (id < 0) {
-            return;
+            throw new IllegalArgumentException("O id não pode ser negativo");
         }
         this.id = id;
     }
@@ -73,7 +73,7 @@ public class Pedido {
 
     public void setData(LocalDate data) {
         if (data == null) {
-            return;
+            throw new IllegalArgumentException("A data não pode ser nulo");
         }
         this.data = data;
     }
@@ -84,7 +84,7 @@ public class Pedido {
 
     public void setCliente(Cliente cliente) {
         if (cliente == null) {
-            return;
+            throw new IllegalArgumentException("O cliente não pode ser nulo");
         }
         this.cliente = cliente;
     }
@@ -95,11 +95,11 @@ public class Pedido {
 
     public void setItens(ProdutoPedido[] itens) {
         if (itens == null || itens.length == 0) {
-            return;
+            throw new IllegalArgumentException("O itens não pode está vazio");
         }
         for (ProdutoPedido item : itens) {
             if (item == null) {
-                return;
+                throw new IllegalArgumentException("O item não pode ser nulo");
             }
         }
         this.itens = itens;
@@ -111,7 +111,7 @@ public class Pedido {
 
     public void setPagamento(TipoPagamento pagamento) {
         if (pagamento == null) {
-            return;
+            throw new IllegalArgumentException("O pagamento não pode ser nulo");
         }
         this.pagamento = pagamento;
     }
@@ -122,7 +122,7 @@ public class Pedido {
 
     public void setEstado(TipoEstado estado) {
         if (estado == null) {
-            return;
+            throw new IllegalArgumentException("O estado não pode ser nulo");
         }
         this.estado = estado;
     }
