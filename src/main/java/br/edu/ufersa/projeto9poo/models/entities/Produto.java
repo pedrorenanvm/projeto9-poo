@@ -36,4 +36,8 @@ public class Produto extends Item {
             super.setPreco(preco);
         }
     }
+    public boolean getEstoque() {return estoque;}
+
+    public void setEstoque(boolean estoque) {super.setEstoque(estoque);}
+
 }
