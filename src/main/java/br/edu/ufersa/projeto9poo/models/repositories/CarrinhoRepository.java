@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CarrinhoRepository {
-    public void cadastrar(Carrinho carrinho);
+    void cadastrar(Carrinho carrinho);
 
-    public void editar(Carrinho carrinho);
+    void editar(Carrinho carrinho);
 
-    public void deletar(Carrinho carrinho);
+    void deletar(Carrinho carrinho);
 
-    public Optional<Carrinho> buscar(int id);
+    Optional<Carrinho> buscar(int id);
 
-    public List<Carrinho> buscarTodos();
+    List<Carrinho> buscarTodos();
 }

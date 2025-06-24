@@ -5,15 +5,15 @@ import br.edu.ufersa.projeto9poo.models.entities.Funcionario;
 import java.util.List;
 
 public interface FuncionarioService {
-    public Funcionario logar(Funcionario funcionario);
+    Funcionario logar(Funcionario funcionario);
 
-    public void trocarSenha(Funcionario funcionario);
+    void trocarSenha(Funcionario funcionario);
 
-    public void resetarSenha(Funcionario funcionario);
+    void resetarSenha(Funcionario funcionario);
 
-    public void cadastrar(Funcionario funcionario);
+    void cadastrar(Funcionario funcionario);
 
-    public void deletar(Funcionario funcionario);
+    void deletar(Funcionario funcionario);
 
-    public List<Funcionario> buscarTodos();
+    List<Funcionario> buscarTodos();
 }
