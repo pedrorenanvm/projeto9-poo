@@ -3,9 +3,12 @@ package br.edu.ufersa.projeto9poo.models.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Adicional")
+@Table(name = "adicionais")
 public class Adicional extends Item{
-    public Adicional(Integer id, String nome, long preco,boolean estoque){
+
+    public Adicional() {}
+
+    public Adicional(Long id, String nome, long preco,boolean estoque){
         super(id, nome, preco, estoque);
     }
     public void setPreco(long preco){
@@ -21,10 +24,10 @@ public class Adicional extends Item{
     public String getNome(){
         return nome;
     }
-    public int getId(){
+    public Long getId(){
         return id;
     }
-    public void setId(int id){
+    public void setId(Long id){
         super.setId(id);
     }
     public void setNome(String nome){
