@@ -23,8 +23,7 @@ public class Cliente {
 
     public Cliente() {}
 
-    public Cliente(Long id, String nome, String endereco, String telefone) {
-        this.id = id;
+    public Cliente(String nome, String endereco, String telefone) {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
