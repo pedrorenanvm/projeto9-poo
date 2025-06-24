@@ -2,11 +2,11 @@ package br.edu.ufersa.projeto9poo.models.entities;
 
 import jakarta.persistence.*;
 
-@Entity
+@MappedSuperclass
 public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    public Long id;
 
     @Column(nullable = false, unique = true,length = 50)
     public String nome;
@@ -17,14 +17,32 @@ public abstract class Item {
     @Column(nullable = false)
     public boolean estoque;
 
-    public Item(Integer id, String nome, long preco,boolean estoque) {
+    public Item() {}
+
+    public Item(Long id, String nome, long preco,boolean estoque) {
+        this.id = id;
         this.estoque = estoque;
         this.preco = preco;
         this.nome = nome;
-        this.id = id;
     }
 
-    public void setId(Integer id) {
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public long getPreco() {
+        return preco;
+    }
+
+    public boolean isEstoque() {
+        return estoque;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
