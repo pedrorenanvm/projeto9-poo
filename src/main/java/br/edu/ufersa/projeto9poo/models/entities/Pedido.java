@@ -3,6 +3,7 @@ package br.edu.ufersa.projeto9poo.models.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "pedido")
@@ -19,7 +20,7 @@ public class Pedido {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ProdutoPedido[] itens;
+    private List<ProdutoPedido> itens;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -32,8 +33,7 @@ public class Pedido {
     public Pedido() {
     }
 
-    public Pedido(int id, LocalDate data, Cliente cliente, TipoPagamento pagamento, TipoEstado estado) {
-        setId(id);
+    public Pedido(LocalDate data, Cliente cliente, TipoPagamento pagamento, TipoEstado estado) {
         setData(data);
         setCliente(cliente);
         setPagamento(pagamento);
@@ -89,12 +89,12 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public ProdutoPedido[] getItens() {
+    public List<ProdutoPedido> getItens() {
         return itens;
     }
 
-    public void setItens(ProdutoPedido[] itens) {
-        if (itens == null || itens.length == 0) {
+    public void setItens(List<ProdutoPedido> itens) {
+        if (itens == null || itens.isEmpty()) {
             throw new IllegalArgumentException("O itens não pode está vazio");
         }
         for (ProdutoPedido item : itens) {

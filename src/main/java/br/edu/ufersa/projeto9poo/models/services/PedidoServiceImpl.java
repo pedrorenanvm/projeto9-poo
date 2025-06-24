@@ -5,6 +5,7 @@ import br.edu.ufersa.projeto9poo.models.repositories.PedidoRepository;
 import br.edu.ufersa.projeto9poo.models.repositories.PedidoRepositoryImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PedidoServiceImpl implements PedidoService {
     private final PedidoRepository repo = new PedidoRepositoryImpl();
@@ -20,32 +21,32 @@ public class PedidoServiceImpl implements PedidoService {
             throw new IllegalArgumentException("O pedido não pode ser nulo");
         }
 
-        Pedido pedidoEdita = repo.buscar(pedido.getId());
-        if (pedidoEdita == null) {
+        Optional<Pedido> pedidoEdita = repo.buscar(pedido.getId());
+        if (pedidoEdita.isEmpty()) {
             throw new IllegalArgumentException("O id do pedido não existe");
         }
 
-        pedidoEdita.setData(pedido.getData());
-        pedidoEdita.setCliente(pedido.getCliente());
-        pedidoEdita.setItens(pedido.getItens());
-        pedidoEdita.setPagamento(pedido.getPagamento());
-        pedidoEdita.setEstado(pedido.getEstado());
+        pedidoEdita.get().setData(pedido.getData());
+        pedidoEdita.get().setCliente(pedido.getCliente());
+        pedidoEdita.get().setItens(pedido.getItens());
+        pedidoEdita.get().setPagamento(pedido.getPagamento());
+        pedidoEdita.get().setEstado(pedido.getEstado());
 
-        repo.editar(pedidoEdita);
+        repo.editar(pedidoEdita.get());
     }
 
     @Override
-    public void deletar(int id) {
-        Pedido pedido = repo.buscar(id);
-        if (pedido == null) {
+    public void deletar(Pedido pedido) {
+        Optional<Pedido> pedidoEncontrado = repo.buscar(pedido.getId());
+        if (pedidoEncontrado.isEmpty()) {
             throw new IllegalArgumentException("O id não existe");
         }
-        repo.deletar(pedido);
+        repo.deletar(pedidoEncontrado.get());
     }
 
     @Override
-    public Pedido buscar(int id) {
-        return repo.buscar(id);
+    public Optional<Pedido> buscar(Pedido pedido) {
+        return repo.buscar(pedido.getId());
     }
 
     @Override

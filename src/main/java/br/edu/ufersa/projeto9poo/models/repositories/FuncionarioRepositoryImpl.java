@@ -7,6 +7,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class FuncionarioRepositoryImpl implements FuncionarioRepository {
     private final EntityManager em = JPAUtil.pegarEntityManagerFactory();
@@ -57,22 +58,22 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
     }
 
     @Override
-    public Funcionario buscar(int id) {
+    public Optional<Funcionario> buscar(int id) {
         try {
-            return em.createQuery("SELECT f FROM Funcionario f WHERE f.id = :id", Funcionario.class)
-                    .setParameter("id", id).getSingleResult();
+            return Optional.of(em.createQuery("SELECT f FROM Funcionario f WHERE f.id = :id", Funcionario.class)
+                    .setParameter("id", id).getSingleResult());
         } catch (NoResultException ignora) {
-            return null;
+            return Optional.empty();
         }
     }
 
     @Override
-    public Funcionario buscar(String usuario) {
+    public Optional<Funcionario> buscar(String usuario) {
         try {
-            return em.createQuery("SELECT f FROM Funcionario f WHERE f.usuario = :usuario", Funcionario.class)
-                    .setParameter("usuario", usuario).getSingleResult();
+            return Optional.of(em.createQuery("SELECT f FROM Funcionario f WHERE f.usuario = :usuario", Funcionario.class)
+                    .setParameter("usuario", usuario).getSingleResult());
         } catch (NoResultException ignora) {
-            return null;
+            return Optional.empty();
         }
     }
 

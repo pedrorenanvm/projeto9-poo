@@ -5,6 +5,7 @@ import br.edu.ufersa.projeto9poo.models.repositories.FuncionarioRepository;
 import br.edu.ufersa.projeto9poo.models.repositories.FuncionarioRepositoryImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 public class FuncionarioServiceImpl implements FuncionarioService {
     private final String SENHA_PADRAO = "senha123";
@@ -12,38 +13,38 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     private final FuncionarioRepository repo = new FuncionarioRepositoryImpl();
 
     @Override
-    public Funcionario logar(String usuario, String senha) {
-        Funcionario funcionario = repo.buscar(usuario);
-        if (funcionario == null) {
-            return null;
+    public Funcionario logar(Funcionario funcionario) {
+        Optional<Funcionario> funcionarioEncontrado = repo.buscar(funcionario.getUsuario());
+        if (funcionarioEncontrado.isEmpty()) {
+            throw new IllegalArgumentException("Usuario ou senha incorretos");
         }
 
         // Seria melhor se fosse um hash
-        if (funcionario.getSenha().equals(senha)) {
-            return funcionario;
+        if (funcionarioEncontrado.get().getSenha().equals(funcionario.getSenha())) {
+            return funcionarioEncontrado.get();
         } else {
-            return null;
+            throw new IllegalArgumentException("Usuario ou senha incorretos");
         }
     }
 
     @Override
-    public void trocarSenha(int id, String novaSenha) {
-        Funcionario funcionario = repo.buscar(id);
-        if (funcionario == null) {
+    public void trocarSenha(Funcionario funcionario) {
+        Optional<Funcionario> funcionarioEncontrado = repo.buscar(funcionario.getId());
+        if (funcionarioEncontrado.isEmpty()) {
             throw new IllegalArgumentException("O id não existe");
         }
-        funcionario.setSenha(novaSenha);
-        repo.editar(funcionario);
+        funcionarioEncontrado.get().setSenha(funcionario.getSenha());
+        repo.editar(funcionarioEncontrado.get());
     }
 
     @Override
-    public void resetarSenha(int id) {
-        Funcionario funcionario = repo.buscar(id);
-        if (funcionario == null) {
+    public void resetarSenha(Funcionario funcionario) {
+        Optional<Funcionario> funcionarioEncontrado = repo.buscar(funcionario.getId());
+        if (funcionarioEncontrado.isEmpty()) {
             throw new IllegalArgumentException("O id não existe");
         }
-        funcionario.setSenha(SENHA_PADRAO);
-        repo.editar(funcionario);
+        funcionarioEncontrado.get().setSenha(SENHA_PADRAO);
+        repo.editar(funcionarioEncontrado.get());
     }
 
     @Override
@@ -52,19 +53,19 @@ public class FuncionarioServiceImpl implements FuncionarioService {
             throw new IllegalArgumentException("O funcionario não pode ser nulo");
         }
 
-        if (repo.buscar(funcionario.getUsuario()) != null) {
+        if (repo.buscar(funcionario.getUsuario()).isPresent()) {
             throw new IllegalArgumentException("O usuario já está em uso");
         }
         repo.cadastrar(funcionario);
     }
 
     @Override
-    public void deletar(int id) {
-        Funcionario funcionario = repo.buscar(id);
-        if (funcionario == null) {
+    public void deletar(Funcionario funcionario) {
+        Optional<Funcionario> funcionarioEncontrado = repo.buscar(funcionario.getId());
+        if (funcionarioEncontrado.isEmpty()) {
             throw new IllegalArgumentException("O id não existe");
         }
-        repo.deletar(funcionario);
+        repo.deletar(funcionarioEncontrado.get());
     }
 
     @Override

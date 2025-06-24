@@ -9,7 +9,7 @@ public class Administrador extends Funcionario {
     public Administrador() {
     }
 
-    public Administrador(int id, String usuario, String senha, boolean admin) {
-        super(id, usuario, senha, admin);
+    public Administrador(String usuario, String senha) {
+        super(usuario, senha);
     }
 }

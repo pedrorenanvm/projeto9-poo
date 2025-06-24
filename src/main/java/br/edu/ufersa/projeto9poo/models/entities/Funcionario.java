@@ -21,8 +21,7 @@ public class Funcionario {
     public Funcionario() {
     }
 
-    public Funcionario(int id, String usuario, String senha, boolean admin) {
-        setId(id);
+    public Funcionario(String usuario, String senha) {
         setUsuario(usuario);
         setSenha(senha);
     }

@@ -7,6 +7,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class PedidoRepositoryImpl implements PedidoRepository {
     private final EntityManager em = JPAUtil.pegarEntityManagerFactory();
@@ -57,12 +58,12 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
-    public Pedido buscar(int id) {
+    public Optional<Pedido> buscar(int id) {
         try {
-            return em.createQuery("SELECT f FROM Funcionario f WHERE f.id = :id", Pedido.class)
-                    .setParameter("id", id).getSingleResult();
+            return Optional.of(em.createQuery("SELECT f FROM Funcionario f WHERE f.id = :id", Pedido.class)
+                    .setParameter("id", id).getSingleResult());
         } catch (NoResultException ignora) {
-            return null;
+            return Optional.empty();
         }
     }
 
