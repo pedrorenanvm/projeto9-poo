@@ -7,8 +7,8 @@ public class Produto extends Item {
 
     public Produto() {}
 
-    public Produto(Long id, String nome, long preco, boolean estoque) {
-        super(id,nome, preco, estoque);
+    public Produto(String nome, long preco, boolean estoque) {
+        super(nome, preco, estoque);
     }
 
     public void setPreco(Long preco) {

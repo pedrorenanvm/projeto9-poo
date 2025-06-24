@@ -19,7 +19,7 @@ public abstract class Item {
 
     public Item() {}
 
-    public Item(Long id, String nome, long preco,boolean estoque) {
+    public Item(String nome, long preco,boolean estoque) {
         this.id = id;
         this.estoque = estoque;
         this.preco = preco;

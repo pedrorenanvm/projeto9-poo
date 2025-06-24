@@ -8,8 +8,8 @@ public class Adicional extends Item{
 
     public Adicional() {}
 
-    public Adicional(Long id, String nome, long preco,boolean estoque){
-        super(id, nome, preco, estoque);
+    public Adicional(String nome, long preco, boolean estoque){
+        super(nome, preco, estoque);
     }
     public void setPreco(long preco){
         if (preco>0){
