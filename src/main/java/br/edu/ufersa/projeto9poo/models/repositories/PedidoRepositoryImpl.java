@@ -23,7 +23,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Erro ao cadastrar funcionario", e);
+            throw new RuntimeException("Erro ao cadastrar pedido", e);
         }
     }
 
@@ -38,7 +38,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Erro ao editar funcionario", e);
+            throw new RuntimeException("Erro ao editar pedido", e);
         }
     }
 
@@ -53,14 +53,14 @@ public class PedidoRepositoryImpl implements PedidoRepository {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Erro ao deletar funcionario", e);
+            throw new RuntimeException("Erro ao deletar pedido", e);
         }
     }
 
     @Override
     public Optional<Pedido> buscar(int id) {
         try {
-            return Optional.of(em.createQuery("SELECT f FROM Funcionario f WHERE f.id = :id", Pedido.class)
+            return Optional.of(em.createQuery("SELECT f FROM Pedido f WHERE f.id = :id", Pedido.class)
                     .setParameter("id", id).getSingleResult());
         } catch (NoResultException ignora) {
             return Optional.empty();
@@ -69,6 +69,6 @@ public class PedidoRepositoryImpl implements PedidoRepository {
 
     @Override
     public List<Pedido> buscarTodos() {
-        return em.createQuery("SELECT f FROM Funcionario f", Pedido.class).getResultList();
+        return em.createQuery("SELECT p FROM Pedido p", Pedido.class).getResultList();
     }
 }
