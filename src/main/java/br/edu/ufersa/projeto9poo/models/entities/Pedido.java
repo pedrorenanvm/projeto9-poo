@@ -14,7 +14,7 @@ public class Pedido {
     @Column(nullable = false)
     private LocalDate data;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
