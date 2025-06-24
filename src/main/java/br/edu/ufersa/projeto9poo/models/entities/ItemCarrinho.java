@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name= "produto_pedido")
+@Table(name= "tb_itemCarrinho")
 
-public class ProdutoPedido{
+public class ItemCarrinho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,15 +18,15 @@ public class ProdutoPedido{
 
     @ManyToMany
     @JoinTable(
-            name = "produto_pedido_adicional",
-            joinColumns = @JoinColumn(name = "produto_pedido_id"),
+            name = "item_carrinho_adicional",
+            joinColumns = @JoinColumn(name = "item_carrinho_id"),
             inverseJoinColumns = @JoinColumn(name = "adicional_id")
     )
     private List<Adicional> adicionais;
 
     @ManyToOne(optional=false)
-    @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
+    @JoinColumn(name = "carrinho_id")
+    private Carrinho carrinho;
 
     @Column(nullable = false)
     private int quantidade;
@@ -34,9 +34,9 @@ public class ProdutoPedido{
     @Column(nullable = false)
     private long precoUnidade;
 
-    public ProdutoPedido(){}
+    public ItemCarrinho(){}
 
-    public ProdutoPedido(Produto produto, List<Adicional> adicionais, int quantidade, long precoUnidade){
+    public ItemCarrinho(Produto produto, List<Adicional> adicionais, int quantidade, long precoUnidade){
         this.produto = produto;
         this.adicionais = adicionais;
         setQuantidade(quantidade);
@@ -91,12 +91,12 @@ public class ProdutoPedido{
         }
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public Carrinho getCarrinho() {
+        return carrinho;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setCarrinho(Carrinho carrinho) {
+        this.carrinho = carrinho;
     }
 
 }
