@@ -1,6 +1,6 @@
 package br.edu.ufersa.projeto9poo.models.repositories;
 
-import br.edu.ufersa.projeto9poo.models.entities.Pedido;
+import br.edu.ufersa.projeto9poo.models.entities.Carrinho;
 import br.edu.ufersa.projeto9poo.models.utils.JPAUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -9,58 +9,58 @@ import jakarta.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class PedidoRepositoryImpl implements PedidoRepository {
+public class CarrinhoRepositoryImpl implements CarrinhoRepository {
     private final EntityManager em = JPAUtil.pegarEntityManagerFactory();
 
     @Override
-    public void cadastrar(Pedido pedido) {
+    public void cadastrar(Carrinho carrinho) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.persist(pedido);
+            em.persist(carrinho);
             tx.commit();
         } catch (RuntimeException e) {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Erro ao cadastrar pedido", e);
+            throw new RuntimeException("Erro ao cadastrar carrinho", e);
         }
     }
 
     @Override
-    public void editar(Pedido pedido) {
+    public void editar(Carrinho carrinho) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(pedido);
+            em.merge(carrinho);
             tx.commit();
         } catch (RuntimeException e) {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Erro ao editar pedido", e);
+            throw new RuntimeException("Erro ao editar carrinho", e);
         }
     }
 
     @Override
-    public void deletar(Pedido pedido) {
+    public void deletar(Carrinho carrinho) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.remove(pedido);
+            em.remove(carrinho);
             tx.commit();
         } catch (RuntimeException e) {
             if (tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Erro ao deletar pedido", e);
+            throw new RuntimeException("Erro ao deletar carrinho", e);
         }
     }
 
     @Override
-    public Optional<Pedido> buscar(int id) {
+    public Optional<Carrinho> buscar(int id) {
         try {
-            return Optional.of(em.createQuery("SELECT f FROM Pedido f WHERE f.id = :id", Pedido.class)
+            return Optional.of(em.createQuery("SELECT f FROM Carrinho f WHERE f.id = :id", Carrinho.class)
                     .setParameter("id", id).getSingleResult());
         } catch (NoResultException ignora) {
             return Optional.empty();
@@ -68,7 +68,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
     }
 
     @Override
-    public List<Pedido> buscarTodos() {
-        return em.createQuery("SELECT p FROM Pedido p", Pedido.class).getResultList();
+    public List<Carrinho> buscarTodos() {
+        return em.createQuery("SELECT p FROM Carrinho p", Carrinho.class).getResultList();
     }
 }

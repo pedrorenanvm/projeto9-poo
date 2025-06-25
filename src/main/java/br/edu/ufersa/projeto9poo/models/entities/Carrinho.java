@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "pedido")
-public class Pedido {
+@Table(name = "tb_carrinho")
+public class Carrinho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -19,8 +19,8 @@ public class Pedido {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProdutoPedido> itens;
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemCarrinho> itens;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -30,10 +30,10 @@ public class Pedido {
     @Enumerated(EnumType.STRING)
     private TipoEstado estado;
 
-    public Pedido() {
+    public Carrinho() {
     }
 
-    public Pedido(LocalDate data, Cliente cliente, TipoPagamento pagamento, TipoEstado estado) {
+    public Carrinho(LocalDate data, Cliente cliente, TipoPagamento pagamento, TipoEstado estado) {
         setData(data);
         setCliente(cliente);
         setPagamento(pagamento);
@@ -42,7 +42,7 @@ public class Pedido {
 
     public long precoTotal() {
         long soma = 0;
-        for (ProdutoPedido item : itens) {
+        for (ItemCarrinho item : itens) {
             soma += item.precoTotal();
         }
         return soma;
@@ -89,15 +89,15 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public List<ProdutoPedido> getItens() {
+    public List<ItemCarrinho> getItensCarrinho() {
         return itens;
     }
 
-    public void setItens(List<ProdutoPedido> itens) {
+    public void setItensCarrinho(List<ItemCarrinho> itens) {
         if (itens == null || itens.isEmpty()) {
             throw new IllegalArgumentException("O itens não pode está vazio");
         }
-        for (ProdutoPedido item : itens) {
+        for (ItemCarrinho item : itens) {
             if (item == null) {
                 throw new IllegalArgumentException("O item não pode ser nulo");
             }
