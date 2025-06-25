@@ -3,16 +3,17 @@ package br.edu.ufersa.projeto9poo.models.services;
 import br.edu.ufersa.projeto9poo.models.entities.Adicional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AdicionalServicer {
-    public void cadastrar(Adicional adicional);
+    void cadastrar(Adicional adicional);
 
-    public void editar(Adicional adicional);
+    void editar(Adicional adicional);
 
-    public void deletar(int id);
+    void deletar(Adicional adicional);
 
-    public Adicional buscar(int id);
+    Optional<Adicional> buscar(Adicional adicional);
 
-    public List<Adicional> buscarTodos();
+    List<Adicional> buscarTodos();
 }
 

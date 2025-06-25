@@ -7,6 +7,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AdicionalRepositorylmpl implements AdicionalRepository{
     private final EntityManager em = JPAUtil.pegarEntityManagerFactory();
@@ -55,28 +56,31 @@ public class AdicionalRepositorylmpl implements AdicionalRepository{
     }
 
     @Override
-    public Adicional buscar(int id) {
+    public Optional<Adicional> buscarPorId(long id) {
         try {
-            return em.createQuery("SELECT a FROM Adicional a WHERE a.id = :id", Adicional.class)
+            Adicional a = em.createQuery("SELECT a FROM Adicional a WHERE a.id = :id", Adicional.class)
                     .setParameter("id", id).getSingleResult();
+            return Optional.of(a);
         } catch (NoResultException a) {
-            return null;
+            return Optional.empty();
         }
     }
-    public Adicional buscar(String nome){
+    public Optional<Adicional> buscarPorNome(Adicional adicional){
         try{
-            return em.createQuery("SELECT a FROM Adicional a WHERE a.nome = :nome",Adicional.class)
-                    .setParameter("nome",nome).getSingleResult();
+            Adicional a = em.createQuery("SELECT a FROM Adicional a WHERE a.nome = :nome",Adicional.class)
+                    .setParameter("nome",adicional.nome).getSingleResult();
+            return Optional.of(a);
         } catch (NoResultException a) {
-            return null;
+            return Optional.empty();
         }
     }
-    public Adicional buscar(long preco){
+    public Optional<Adicional> buscarPorPreco(Adicional adicional){
         try{
-            return em.createQuery("SELECT p FROM Produto p WHERE p.preco = :preco",Adicional.class)
-                    .setParameter("nome",preco).getSingleResult();
+            Adicional a = em.createQuery("SELECT p FROM Produto p WHERE p.preco = :preco",Adicional.class)
+                    .setParameter("nome",adicional.preco).getSingleResult();
+            return Optional.of(a);
         } catch (NoResultException a) {
-            return null;
+            return Optional.empty();
         }
     }
     @Override

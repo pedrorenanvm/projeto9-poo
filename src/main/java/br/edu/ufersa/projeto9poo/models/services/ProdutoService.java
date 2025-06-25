@@ -3,16 +3,17 @@ package br.edu.ufersa.projeto9poo.models.services;
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProdutoService {
-    public void cadastrar(Produto produto);
+    void cadastrar(Produto produto);
 
-    public void editar(Produto produto);
+    void editar(Produto produto);
 
-    public void deletar(int id);
+    void deletar(Produto produto);
 
-    public Produto buscar(int id);
+    Optional<Produto> buscar(Produto produto);
 
-    public List<Produto> buscarTodos();
+    List<Produto> buscarTodos();
 
 }

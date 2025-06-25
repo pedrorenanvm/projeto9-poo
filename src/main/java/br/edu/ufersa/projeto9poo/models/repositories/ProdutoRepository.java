@@ -3,20 +3,21 @@ package br.edu.ufersa.projeto9poo.models.repositories;
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ProdutoRepository {
-    public void cadastrar(Produto produto);
+    void cadastrar(Produto produto);
 
-    public void editar(Produto produto);
+    void editar(Produto produto);
 
-    public void deletar(Produto produto);
+    void deletar(Produto produto);
 
-    public Produto buscar(int id);
+    Optional<Produto> buscarPorNome(Produto produto);
 
-    public Produto buscar(long preco);
+    Optional<Produto> buscarPorId(long id);
 
-    public Produto buscar(String nome);
+    Optional<Produto> buscarPorPreco(Produto produto);
 
-    public List<Produto> buscarTodos();
+    List<Produto> buscarTodos();
 }

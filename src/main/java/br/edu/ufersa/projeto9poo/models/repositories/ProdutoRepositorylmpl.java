@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 import java.util.List;
+import java.util.Optional;
 
 
 public class ProdutoRepositorylmpl implements ProdutoRepository{
@@ -51,29 +52,32 @@ public class ProdutoRepositorylmpl implements ProdutoRepository{
 
     }
 
-    public Produto buscar(String nome){
+    public Optional<Produto> buscarPorNome(Produto produto){
         try{
-            return em.createQuery("SELECT p FROM Produto p WHERE p.nome = :nome",Produto.class)
-                    .setParameter("nome",nome).getSingleResult();
+            Produto p = em.createQuery("SELECT p FROM Produto p WHERE p.nome = :nome",Produto.class)
+                    .setParameter("nome",produto.nome).getSingleResult();
+            return Optional.of(p);
         } catch (NoResultException a) {
-            return null;
+            return Optional.empty();
         }
     }
 
-    public Produto buscar(int id){
+    public Optional<Produto> buscarPorId(long id){
         try{
-            return em.createQuery("SELECT p FROM Produto p WHERE p.id = :idd",Produto.class)
+            Produto p = em.createQuery("SELECT p FROM Produto p WHERE p.id = :idd",Produto.class)
                     .setParameter("id",id).getSingleResult();
+            return Optional.of(p);
         } catch (NoResultException a) {
-            return null;
+            return Optional.empty();
         }
     }
-    public Produto buscar(long preco){
+    public Optional<Produto> buscarPorPreco(Produto produto){
         try{
-            return em.createQuery("SELECT p FROM Produto p WHERE p.preco = :preco",Produto.class)
-                    .setParameter("nome",preco).getSingleResult();
+            Produto p = em.createQuery("SELECT p FROM Produto p WHERE p.preco = :preco",Produto.class)
+                    .setParameter("nome",produto.preco).getSingleResult();
+            return Optional.of(p);
         } catch (NoResultException a) {
-            return null;
+            return Optional.empty();
         }
     }
     public List<Produto> buscarTodos() {
