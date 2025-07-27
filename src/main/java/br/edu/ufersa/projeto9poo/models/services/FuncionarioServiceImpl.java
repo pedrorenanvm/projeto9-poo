@@ -56,6 +56,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         if (repo.buscar(funcionario.getUsuario()).isPresent()) {
             throw new IllegalArgumentException("O usuario já está em uso");
         }
+        funcionario.setSenha(SENHA_PADRAO);
         repo.cadastrar(funcionario);
     }
 
