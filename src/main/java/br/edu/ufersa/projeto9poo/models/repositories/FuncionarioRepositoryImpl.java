@@ -78,7 +78,9 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepository {
     }
 
     @Override
-    public List<Funcionario> buscarTodos() {
-        return em.createQuery("SELECT f FROM Funcionario f", Funcionario.class).getResultList();
+    public List<Funcionario> buscarTodos(String likeUsuario) {
+        return em.createQuery("SELECT f FROM Funcionario f WHERE f.usuario ILIKE :likeUsuario", Funcionario.class)
+                .setParameter("likeUsuario", "%" + likeUsuario + "%")
+                .getResultList();
     }
 }

@@ -16,5 +16,5 @@ public interface FuncionarioRepository {
 
     Optional<Funcionario> buscar(String usuario);
 
-    List<Funcionario> buscarTodos();
+    List<Funcionario> buscarTodos(String likeUsuario);
 }

@@ -70,7 +70,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public List<Funcionario> buscarTodos() {
-        return repo.buscarTodos();
+    public List<Funcionario> buscarTodos(String likeUsuario) {
+        return repo.buscarTodos(likeUsuario);
     }
 }

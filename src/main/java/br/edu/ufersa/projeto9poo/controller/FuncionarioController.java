@@ -14,6 +14,8 @@ import java.util.List;
 
 public class FuncionarioController {
     @FXML
+    private TextField inputBuscar;
+    @FXML
     private TableView<Funcionario> table;
     @FXML
     private TableColumn<Funcionario, Integer> tableId;
@@ -36,10 +38,13 @@ public class FuncionarioController {
         table.getSelectionModel().selectedItemProperty().addListener((
                 (observableValue, antido, novo) -> selecionarItem(novo)
         ));
+        inputBuscar.setOnAction(e -> {
+            recarregarLista();
+        });
     }
 
     private void recarregarLista() {
-        List<Funcionario> funcionarios = funcionarioService.buscarTodos();
+        List<Funcionario> funcionarios = funcionarioService.buscarTodos(inputBuscar.getText());
         ObservableList<Funcionario> observableFuncionarios = FXCollections.observableList(funcionarios);
         table.setItems(observableFuncionarios);
     }

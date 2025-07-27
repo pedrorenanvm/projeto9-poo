@@ -15,5 +15,5 @@ public interface FuncionarioService {
 
     void deletar(Funcionario funcionario);
 
-    List<Funcionario> buscarTodos();
+    List<Funcionario> buscarTodos(String likeUsuario);
 }
