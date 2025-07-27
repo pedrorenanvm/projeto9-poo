@@ -15,6 +15,10 @@ public class FuncionarioView extends Application {
 
     @Override
     public void start(Stage stage) {
+        trocar(stage);
+    }
+
+    public static void trocar(Stage stage) {
         FXMLLoader fxmlLoader = new FXMLLoader(FuncionarioView.class.getResource("/br/edu/ufersa/projeto9poo/view/Funcionario.fxml"));
         Scene scene = null;
         try {
