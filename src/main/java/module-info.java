@@ -23,5 +23,5 @@ module projeto9poo {
 
     exports br.edu.ufersa.projeto9poo.app;
     exports br.edu.ufersa.projeto9poo.view;
-
+    exports br.edu.ufersa.projeto9poo.models.entities;
 }
