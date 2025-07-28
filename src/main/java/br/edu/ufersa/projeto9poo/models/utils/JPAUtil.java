@@ -5,16 +5,29 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class JPAUtil {
+    private static volatile JPAUtil instance;
     private static final String PERSISTENCE_UNIT_NAME = "acaiteria";
-    private static final EntityManagerFactory EMF = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+
+    private JPAUtil() {
+        System.out.println("Executando o construtor do JPAUtil");
+    }
+
+    private static synchronized JPAUtil pegarInstancia() {
+        if (instance == null) {
+            instance = new JPAUtil();
+        }
+        return instance;
+    }
 
     public static EntityManager pegarEntityManagerFactory() {
-        return EMF.createEntityManager();
+        return pegarInstancia().emf.createEntityManager();
     }
 
     public static void shutdown() {
-        if (EMF.isOpen()) {
-            EMF.close();
+        EntityManagerFactory emf = pegarInstancia().emf;
+        if (emf.isOpen()) {
+            emf.close();
         }
     }
 }
