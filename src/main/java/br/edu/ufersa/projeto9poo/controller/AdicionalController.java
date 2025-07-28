@@ -29,7 +29,6 @@ public class AdicionalController {
     private TextField textFieldAdicionalEstoque;
     @FXML
     private TextField inputAdicional;
-    private List<Adicional> listAdicionais;
     private ObservableList<Adicional> observableListAdicionais;
 
     private AdicionalServicer adicionalServicer = new AdicionalServicelmpl();
@@ -41,10 +40,13 @@ public class AdicionalController {
         carregarLista();
         tableViewAdicional.getSelectionModel().selectedItemProperty().addListener(
                 ((observableValue, adicionalAntigo, adicionalNovo) -> selecionarTableViewAdicional(adicionalNovo)));
+        inputAdicional.setOnAction(actionEvent -> {
+            carregarLista();
+        });
     }
     private void carregarLista(){
-        List<Adicional> adicionals = adicionalServicer.buscarTodos();
-        observableListAdicionais = FXCollections.observableList(adicionals);
+        List<Adicional> adicionais = adicionalServicer.buscarTodos(inputAdicional.getText());
+        observableListAdicionais = FXCollections.observableList(adicionais);
         tableViewAdicional.setItems(observableListAdicionais);
     }
     private void selecionarTableViewAdicional(Adicional adicional) {
@@ -52,9 +54,8 @@ public class AdicionalController {
             labelAdicionalId.setText(String.valueOf(adicional.getId()));
             textFieldAdicionalNome.setText(adicional.getNome());
             textFieldAdicionalPreco.setText(String.valueOf(adicional.getPreco()));
-            textFieldAdicionalEstoque.setText(String.valueOf(adicional.getEstoque()));
+            textFieldAdicionalEstoque.setText(String.valueOf(adicional.isEstoque()));
         }
-    carregarLista();
     }
 
     private void exibirErro(String mensagem) {

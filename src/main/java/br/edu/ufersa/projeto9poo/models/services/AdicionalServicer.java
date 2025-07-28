@@ -12,7 +12,7 @@ public interface AdicionalServicer {
 
     void deletar(Adicional adicional);
 
-    Optional<Adicional> buscar(Adicional adicional);
+    List<Adicional> buscarTodos(String adicional);
 
     List<Adicional> buscarTodos();
 }

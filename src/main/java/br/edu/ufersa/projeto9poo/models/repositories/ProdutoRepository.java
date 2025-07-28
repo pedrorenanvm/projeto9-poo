@@ -20,4 +20,6 @@ public interface ProdutoRepository {
     Optional<Produto> buscarPorPreco(Produto produto);
 
     List<Produto> buscarTodos();
+
+    List<Produto> buscarTodos(String p);
 }

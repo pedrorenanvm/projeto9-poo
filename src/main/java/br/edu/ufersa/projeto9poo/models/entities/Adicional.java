@@ -19,13 +19,13 @@ public class Adicional extends Item{
         }
     }
     public long getPreco(){
-        return preco;
+        return super.getPreco();
     }
     public String getNome(){
-        return nome;
+        return super.getNome();
     }
     public Long getId(){
-        return id;
+        return super.getId();
     }
     public void setId(Long id){
         super.setId(id);
@@ -33,7 +33,7 @@ public class Adicional extends Item{
     public void setNome(String nome){
         super.setNome(nome);
     }
-    public boolean getEstoque() {return estoque;}
+    public boolean getEstoque() {return super.isEstoque();}
 
     public void setEstoque(boolean estoque) {super.setEstoque(estoque);}
 

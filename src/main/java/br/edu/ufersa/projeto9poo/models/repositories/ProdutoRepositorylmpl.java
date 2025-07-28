@@ -1,5 +1,6 @@
 package br.edu.ufersa.projeto9poo.models.repositories;
 
+import br.edu.ufersa.projeto9poo.models.entities.Adicional;
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
 import br.edu.ufersa.projeto9poo.models.utils.JPAUtil;
 import jakarta.persistence.EntityManager;
@@ -55,7 +56,7 @@ public class ProdutoRepositorylmpl implements ProdutoRepository{
     public Optional<Produto> buscarPorNome(Produto produto){
         try{
             Produto p = em.createQuery("SELECT p FROM Produto p WHERE p.nome = :nome",Produto.class)
-                    .setParameter("nome",produto.nome).getSingleResult();
+                    .setParameter("nome",produto.getNome()).getSingleResult();
             return Optional.of(p);
         } catch (NoResultException a) {
             return Optional.empty();
@@ -74,7 +75,7 @@ public class ProdutoRepositorylmpl implements ProdutoRepository{
     public Optional<Produto> buscarPorPreco(Produto produto){
         try{
             Produto p = em.createQuery("SELECT p FROM Produto p WHERE p.preco = :preco",Produto.class)
-                    .setParameter("nome",produto.preco).getSingleResult();
+                    .setParameter("nome",produto.getPreco()).getSingleResult();
             return Optional.of(p);
         } catch (NoResultException a) {
             return Optional.empty();
@@ -83,7 +84,11 @@ public class ProdutoRepositorylmpl implements ProdutoRepository{
     public List<Produto> buscarTodos() {
         return em.createQuery("SELECT p FROM Produto p",Produto.class).getResultList();
     }
-
+    public List<Produto> buscarTodos(String produto){
+        return em.createQuery("SELECT a FROM Produto a WHERE LOWER(a.nome) LIKE LOWER(:nome)", Produto.class)
+                .setParameter("nome", "%" + produto + "%")
+                .getResultList();
+    }
 
 
 }

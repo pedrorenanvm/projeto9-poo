@@ -12,7 +12,7 @@ public class AdicionalServicelmpl implements AdicionalServicer {
     private final AdicionalRepository repository = new AdicionalRepositorylmpl();
 
     public void cadastrar(Adicional adicional) {
-        if (repository.buscarPorNome(adicional).isPresent()) {
+        if (repository.buscarPorNome(adicional.getNome()).isPresent()) {
             throw new IllegalArgumentException("Já existe um adicional com esse nome.");
         }
         repository.cadastrar(adicional);
@@ -23,7 +23,7 @@ public class AdicionalServicelmpl implements AdicionalServicer {
             throw new IllegalArgumentException("Produto inexistente");
         }
 
-        Optional<Adicional> a = repository.buscarPorId(adicional.id);
+        Optional<Adicional> a = repository.buscarPorId(adicional.getId());
         if (a.isPresent()) {
             Adicional a2 = a.get();
             a2.setNome(adicional.getNome());
@@ -35,7 +35,7 @@ public class AdicionalServicelmpl implements AdicionalServicer {
     }
 
     public void deletar(Adicional adicional) {
-        Optional<Adicional> a = repository.buscarPorId(adicional.id);
+        Optional<Adicional> a = repository.buscarPorId(adicional.getId());
         if (a.isEmpty()) {
             throw new IllegalArgumentException("O id não existe");
         }
@@ -44,15 +44,16 @@ public class AdicionalServicelmpl implements AdicionalServicer {
     }
 
     @Override
-    public Optional<Adicional> buscar(Adicional adicional) {
-        Optional<Adicional> a = repository.buscarPorId(adicional.id);
-        if (a.isEmpty()) {
-            throw new IllegalArgumentException("O id não existe");
-        }
-        Adicional a2 = a.get();
-        return repository.buscarPorId(a2.id);
-    }
-        public List<Adicional> buscarTodos () {
+    public List<Adicional> buscarTodos(String adicional) {
+        if (adicional==null || adicional.trim().isEmpty()) {
             return repository.buscarTodos();
         }
+        return repository.buscarTodos(adicional);
     }
+    public List<Adicional> buscarTodos () {
+        return repository.buscarTodos();
+    }
+}
+
+
+

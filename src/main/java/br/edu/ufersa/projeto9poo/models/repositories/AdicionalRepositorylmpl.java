@@ -65,19 +65,20 @@ public class AdicionalRepositorylmpl implements AdicionalRepository{
             return Optional.empty();
         }
     }
-    public Optional<Adicional> buscarPorNome(Adicional adicional){
+    public Optional<Adicional> buscarPorNome(String adicional){
         try{
             Adicional a = em.createQuery("SELECT a FROM Adicional a WHERE a.nome = :nome",Adicional.class)
-                    .setParameter("nome",adicional.nome).getSingleResult();
+                    .setParameter("nome",adicional).getSingleResult();
             return Optional.of(a);
         } catch (NoResultException a) {
             return Optional.empty();
         }
     }
+
     public Optional<Adicional> buscarPorPreco(Adicional adicional){
         try{
             Adicional a = em.createQuery("SELECT p FROM Produto p WHERE p.preco = :preco",Adicional.class)
-                    .setParameter("nome",adicional.preco).getSingleResult();
+                    .setParameter("nome",adicional.getPreco()).getSingleResult();
             return Optional.of(a);
         } catch (NoResultException a) {
             return Optional.empty();
@@ -86,5 +87,10 @@ public class AdicionalRepositorylmpl implements AdicionalRepository{
     @Override
     public List<Adicional> buscarTodos() {
         return em.createQuery("SELECT a FROM Adicional a", Adicional.class).getResultList();
+    }
+    public List<Adicional> buscarTodos(String adicional){
+        return em.createQuery("SELECT a FROM Adicional a WHERE LOWER(a.nome) LIKE LOWER(:nome)", Adicional.class)
+                .setParameter("nome", "%" + adicional + "%")
+                .getResultList();
     }
 }
