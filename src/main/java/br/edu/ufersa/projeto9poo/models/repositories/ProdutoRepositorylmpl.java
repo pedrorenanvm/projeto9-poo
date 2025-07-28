@@ -64,7 +64,7 @@ public class ProdutoRepositorylmpl implements ProdutoRepository{
 
     public Optional<Produto> buscarPorId(long id){
         try{
-            Produto p = em.createQuery("SELECT p FROM Produto p WHERE p.id = :idd",Produto.class)
+            Produto p = em.createQuery("SELECT p FROM Produto p WHERE p.id = :id",Produto.class)
                     .setParameter("id",id).getSingleResult();
             return Optional.of(p);
         } catch (NoResultException a) {

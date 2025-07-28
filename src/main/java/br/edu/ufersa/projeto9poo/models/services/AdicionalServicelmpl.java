@@ -12,16 +12,17 @@ public class AdicionalServicelmpl implements AdicionalServicer {
     private final AdicionalRepository repository = new AdicionalRepositorylmpl();
 
     public void cadastrar(Adicional adicional) {
-        if (repository.buscarPorId(adicional.id).isEmpty()) {
-            repository.cadastrar(adicional);
+        if (repository.buscarPorNome(adicional).isPresent()) {
+            throw new IllegalArgumentException("Já existe um adicional com esse nome.");
         }
-        throw new IllegalArgumentException("Produto já existente.");
+        repository.cadastrar(adicional);
     }
 
     public void editar(Adicional adicional) {
-        if (repository.buscarPorId(adicional.id).isEmpty()) {
+        if (repository.buscarPorId(adicional.getId()).isEmpty()) {
             throw new IllegalArgumentException("Produto inexistente");
         }
+
         Optional<Adicional> a = repository.buscarPorId(adicional.id);
         if (a.isPresent()) {
             Adicional a2 = a.get();

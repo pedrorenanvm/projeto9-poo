@@ -11,14 +11,14 @@ public class ProdutoServicelmpl implements ProdutoService{
 
     private final ProdutoRepository repository = new ProdutoRepositorylmpl();
 
-    public void cadastrar(Produto produto){
-        if (repository.buscarPorId(produto.id).isEmpty()) {
-            repository.cadastrar(produto);
+    public void cadastrar(Produto produto) {
+        if (repository.buscarPorNome(produto).isPresent()) {
+            throw new IllegalArgumentException("Já existe um adicional com esse nome.");
         }
-        throw new IllegalArgumentException("Produto já existente.");
+        repository.cadastrar(produto);
     }
     public void editar(Produto produto){
-        if (repository.buscarPorId(produto.id).isEmpty()) {
+        if (repository.buscarPorId(produto.getId()).isEmpty()) {
             throw new IllegalArgumentException("Produto inexistente");
         }
         Optional<Produto> p = repository.buscarPorId(produto.getId());
