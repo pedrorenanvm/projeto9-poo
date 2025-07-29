@@ -8,8 +8,10 @@ import jakarta.persistence.EntityTransaction;
 import java.util.List;
 import java.util.Optional;
 
+import static br.edu.ufersa.projeto9poo.models.utils.JPAUtil.pegarEntityManagerFactory;
+
 public class ItemCarrinhoRepositoryImpl implements ItemCarrinhoRepository {
-    private final EntityManager em = new JPAUtil().pegarEntityManagerFactory();
+    private final EntityManager em = pegarEntityManagerFactory();
 
     @Override
     public void cadastrar(ItemCarrinho itemCarrinho) {
