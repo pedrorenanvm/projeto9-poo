@@ -3,6 +3,7 @@ package br.edu.ufersa.projeto9poo.controller;
 import br.edu.ufersa.projeto9poo.models.entities.Funcionario;
 import br.edu.ufersa.projeto9poo.models.services.FuncionarioService;
 import br.edu.ufersa.projeto9poo.models.services.FuncionarioServiceImpl;
+import br.edu.ufersa.projeto9poo.models.services.UsuarioSenhaIncorretoException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -38,6 +39,8 @@ public class TrocarSenhaController {
             funcionarioService.trocarSenha(funcionario);
         } catch (RuntimeException e) {
             exibirError(e.getMessage());
+        } catch (UsuarioSenhaIncorretoException e) {
+            exibirError("Senha antiga incorreto");
         }
     }
 

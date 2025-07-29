@@ -5,7 +5,7 @@ import br.edu.ufersa.projeto9poo.models.entities.Funcionario;
 import java.util.List;
 
 public interface FuncionarioService {
-    Funcionario logar(Funcionario funcionario);
+    Funcionario logar(Funcionario funcionario) throws UsuarioSenhaIncorretoException;
 
     void trocarSenha(Funcionario funcionario);
 

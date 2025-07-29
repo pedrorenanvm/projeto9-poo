@@ -13,17 +13,17 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     private final FuncionarioRepository repo = new FuncionarioRepositoryImpl();
 
     @Override
-    public Funcionario logar(Funcionario funcionario) {
+    public Funcionario logar(Funcionario funcionario) throws UsuarioSenhaIncorretoException {
         Optional<Funcionario> funcionarioEncontrado = repo.buscar(funcionario.getUsuario());
         if (funcionarioEncontrado.isEmpty()) {
-            throw new IllegalArgumentException("Usuario ou senha incorretos");
+            throw new UsuarioSenhaIncorretoException();
         }
 
         // Seria melhor se fosse um hash
         if (funcionarioEncontrado.get().getSenha().equals(funcionario.getSenha())) {
             return funcionarioEncontrado.get();
         } else {
-            throw new IllegalArgumentException("Usuario ou senha incorretos");
+            throw new UsuarioSenhaIncorretoException();
         }
     }
 
