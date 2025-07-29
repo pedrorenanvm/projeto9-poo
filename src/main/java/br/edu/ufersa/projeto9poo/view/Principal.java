@@ -1,9 +1,12 @@
 package br.edu.ufersa.projeto9poo.view;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class Principal extends Application {
 
@@ -13,11 +16,16 @@ public class Principal extends Application {
 
     @Override
     public void start(Stage stage) {
-        Label message = new Label();
-        message.setText("Meu primeiro programa usando o javaFX no projeto");
-        Scene scene = new Scene(message, 300, 150);
-        stage.setTitle("JavaFx teste");
+        FXMLLoader fxmlLoader = new FXMLLoader(FuncionarioView.class.getResource("/br/edu/ufersa/projeto9poo/view/NovaPrincipal.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load(), 800, 600);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        stage.setTitle("Home");
         stage.setScene(scene);
+        stage.setMaximized(true); // ou setFullScreen(true);
         stage.show();
     }
 }
