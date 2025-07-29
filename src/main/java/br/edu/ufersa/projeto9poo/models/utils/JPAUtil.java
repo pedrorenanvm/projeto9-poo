@@ -13,9 +13,13 @@ public class JPAUtil {
         System.out.println("Executando o construtor do JPAUtil");
     }
 
-    private static synchronized JPAUtil pegarInstancia() {
+    private static JPAUtil pegarInstancia() {
         if (instance == null) {
-            instance = new JPAUtil();
+            synchronized (JPAUtil.class) {
+                if (instance == null) {
+                    instance = new JPAUtil();
+                }
+            }
         }
         return instance;
     }
