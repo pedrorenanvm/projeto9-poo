@@ -1,16 +1,15 @@
 package br.edu.ufersa.projeto9poo.models.services;
 
-import br.edu.ufersa.projeto9poo.models.entities.Adicional;
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
 import br.edu.ufersa.projeto9poo.models.repositories.ProdutoRepository;
-import br.edu.ufersa.projeto9poo.models.repositories.ProdutoRepositorylmpl;
+import br.edu.ufersa.projeto9poo.models.repositories.ProdutoRepositoryImpl;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ProdutoServicelmpl implements ProdutoService{
+public class ProdutoServiceImpl implements ProdutoService{
 
-    private final ProdutoRepository repository = new ProdutoRepositorylmpl();
+    private final ProdutoRepository repository = new ProdutoRepositoryImpl();
 
     public void cadastrar(Produto produto) {
         if (repository.buscarPorNome(produto).isPresent()) {

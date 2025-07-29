@@ -1,9 +1,8 @@
 package br.edu.ufersa.projeto9poo.controller;
 
 import br.edu.ufersa.projeto9poo.models.entities.Adicional;
-import br.edu.ufersa.projeto9poo.models.services.AdicionalServicelmpl;
-import br.edu.ufersa.projeto9poo.models.services.AdicionalServicer;
-import javafx.beans.Observable;
+import br.edu.ufersa.projeto9poo.models.services.AdicionalServiceImpl;
+import br.edu.ufersa.projeto9poo.models.services.AdicionalService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,7 +30,7 @@ public class AdicionalController {
     private TextField inputAdicional;
     private ObservableList<Adicional> observableListAdicionais;
 
-    private AdicionalServicer adicionalServicer = new AdicionalServicelmpl();
+    private AdicionalService adicionalServicer = new AdicionalServiceImpl();
 
     @FXML
     private void initialize(){

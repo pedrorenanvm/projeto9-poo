@@ -2,14 +2,14 @@ package br.edu.ufersa.projeto9poo.models.services;
 
 import br.edu.ufersa.projeto9poo.models.entities.Adicional;
 import br.edu.ufersa.projeto9poo.models.repositories.AdicionalRepository;
-import br.edu.ufersa.projeto9poo.models.repositories.AdicionalRepositorylmpl;
+import br.edu.ufersa.projeto9poo.models.repositories.AdicionalRepositoryImpl;
 
 import java.util.List;
 import java.util.Optional;
 
-public class AdicionalServicelmpl implements AdicionalServicer {
+public class AdicionalServiceImpl implements AdicionalService {
 
-    private final AdicionalRepository repository = new AdicionalRepositorylmpl();
+    private final AdicionalRepository repository = new AdicionalRepositoryImpl();
 
     public void cadastrar(Adicional adicional) {
         if (repository.buscarPorNome(adicional.getNome()).isPresent()) {

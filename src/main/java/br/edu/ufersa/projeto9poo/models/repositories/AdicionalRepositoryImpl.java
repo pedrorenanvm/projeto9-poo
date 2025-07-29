@@ -9,7 +9,7 @@ import jakarta.persistence.NoResultException;
 import java.util.List;
 import java.util.Optional;
 
-public class AdicionalRepositorylmpl implements AdicionalRepository{
+public class AdicionalRepositoryImpl implements AdicionalRepository{
     private final EntityManager em = JPAUtil.pegarEntityManagerFactory();
 
     public void cadastrar(Adicional adicional){
@@ -75,15 +75,6 @@ public class AdicionalRepositorylmpl implements AdicionalRepository{
         }
     }
 
-    public Optional<Adicional> buscarPorPreco(Adicional adicional){
-        try{
-            Adicional a = em.createQuery("SELECT p FROM Produto p WHERE p.preco = :preco",Adicional.class)
-                    .setParameter("nome",adicional.getPreco()).getSingleResult();
-            return Optional.of(a);
-        } catch (NoResultException a) {
-            return Optional.empty();
-        }
-    }
     @Override
     public List<Adicional> buscarTodos() {
         return em.createQuery("SELECT a FROM Adicional a", Adicional.class).getResultList();

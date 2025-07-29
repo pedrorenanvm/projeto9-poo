@@ -1,16 +1,13 @@
 package br.edu.ufersa.projeto9poo.controller;
 
-import br.edu.ufersa.projeto9poo.models.entities.Adicional;
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
 import br.edu.ufersa.projeto9poo.models.services.ProdutoService;
-import br.edu.ufersa.projeto9poo.models.services.ProdutoServicelmpl;
-import javafx.beans.Observable;
+import br.edu.ufersa.projeto9poo.models.services.ProdutoServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.hibernate.procedure.ProcedureOutputs;
 
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class ProdutoController {
     private TextField inputProduto;
     private ObservableList<Produto> observableListProdutos;
 
-    private ProdutoService produtoServicer = new ProdutoServicelmpl();
+    private ProdutoService produtoServicer = new ProdutoServiceImpl();
 
     @FXML
     private void initialize(){

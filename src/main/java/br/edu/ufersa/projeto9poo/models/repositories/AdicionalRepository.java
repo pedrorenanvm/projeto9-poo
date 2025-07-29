@@ -17,8 +17,6 @@ public interface AdicionalRepository {
 
     Optional<Adicional> buscarPorId(long id);
 
-    Optional<Adicional> buscarPorPreco(Adicional adicional);
-
     List<Adicional> buscarTodos();
 
     List<Adicional> buscarTodos(String a);
