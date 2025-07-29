@@ -1,0 +1,82 @@
+package br.edu.ufersa.projeto9poo.controller;
+
+import br.edu.ufersa.projeto9poo.models.entities.Adicional;
+import br.edu.ufersa.projeto9poo.models.entities.Carrinho;
+import br.edu.ufersa.projeto9poo.models.entities.ItemCarrinho;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.util.List;
+
+public class NotaController {
+    @FXML
+    private Label labelId;
+    @FXML
+    private Label labelCliente;
+    @FXML
+    private Label labelEstado;
+    @FXML
+    private Label labelTipoPagamento;
+    @FXML
+    private Label labelData;
+    @FXML
+    private Label labelTotal;
+    @FXML
+    private TableView<ItemCarrinho> table;
+    @FXML
+    private TableColumn<ItemCarrinho, Long> columnId;
+    @FXML
+    private TableColumn<ItemCarrinho, String> columnProduto;
+    @FXML
+    private TableColumn<ItemCarrinho, Integer> columnQuantidade;
+    @FXML
+    private TableColumn<ItemCarrinho, Long> columnPreco;
+    @FXML
+    private TableColumn<ItemCarrinho, Long> columnTotal;
+
+    private Carrinho carrinho;
+
+    @FXML
+    private void initialize() {
+        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        columnProduto.setCellValueFactory(param -> {
+            ItemCarrinho item = param.getValue();
+            String nome = item.getProduto().getNome();
+            String adicionais = String.join(", ", item.getAdicionais().stream().map(Adicional::getNome).toList());
+            if (!adicionais.isEmpty()) {
+                nome += " (" + adicionais + ")";
+            }
+            return new ReadOnlyStringWrapper(nome);
+        });
+        columnQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        columnPreco.setCellValueFactory(new PropertyValueFactory<>("precoUnidade"));
+        columnTotal.setCellValueFactory(param -> {
+            ItemCarrinho item = param.getValue();
+            return new ReadOnlyObjectWrapper<Long>(item.precoTotal());
+        });
+    }
+
+    public void carregar() {
+        List<ItemCarrinho> itens = carrinho.getItensCarrinho();
+        ObservableList<ItemCarrinho> observableItemCarrinho = FXCollections.observableList(itens);
+        table.setItems(observableItemCarrinho);
+
+        labelId.setText(String.valueOf(carrinho.getId()));
+        labelCliente.setText(carrinho.getCliente().getNome());
+        labelData.setText(carrinho.getData().toString());
+        labelEstado.setText(carrinho.getEstado().toString());
+        labelTipoPagamento.setText(carrinho.getPagamento().toString());
+        labelTotal.setText(String.valueOf(carrinho.precoTotal()));
+    }
+
+    public void setCarrinho(Carrinho carrinho) {
+        this.carrinho = carrinho;
+    }
+}
