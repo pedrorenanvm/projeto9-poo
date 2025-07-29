@@ -6,21 +6,20 @@ import jakarta.persistence.*;
 public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
     @Column(nullable = false, unique = true,length = 50)
-    public String nome;
+    private String nome;
 
     @Column(nullable = false)
-    public long preco;
+    private long preco;
 
     @Column(nullable = false)
-    public boolean estoque;
+    private boolean estoque;
 
     public Item() {}
 
     public Item(String nome, long preco,boolean estoque) {
-        this.id = id;
         this.estoque = estoque;
         this.preco = preco;
         this.nome = nome;
@@ -57,4 +56,5 @@ public abstract class Item {
     public void setEstoque(boolean estoque) {
         this.estoque = estoque;
     }
+
 }

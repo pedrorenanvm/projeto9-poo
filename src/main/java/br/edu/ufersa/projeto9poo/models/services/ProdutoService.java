@@ -12,7 +12,7 @@ public interface ProdutoService {
 
     void deletar(Produto produto);
 
-    Optional<Produto> buscar(Produto produto);
+    List<Produto> buscarTodos(String produto);
 
     List<Produto> buscarTodos();
 

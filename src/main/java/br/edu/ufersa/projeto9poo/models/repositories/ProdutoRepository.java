@@ -17,7 +17,7 @@ public interface ProdutoRepository {
 
     Optional<Produto> buscarPorId(long id);
 
-    Optional<Produto> buscarPorPreco(Produto produto);
-
     List<Produto> buscarTodos();
+
+    List<Produto> buscarTodos(String p);
 }

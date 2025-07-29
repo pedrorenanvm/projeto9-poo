@@ -2,14 +2,14 @@ package br.edu.ufersa.projeto9poo.models.services;
 
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
 import br.edu.ufersa.projeto9poo.models.repositories.ProdutoRepository;
-import br.edu.ufersa.projeto9poo.models.repositories.ProdutoRepositorylmpl;
+import br.edu.ufersa.projeto9poo.models.repositories.ProdutoRepositoryImpl;
 
 import java.util.List;
 import java.util.Optional;
 
-public class ProdutoServicelmpl implements ProdutoService{
+public class ProdutoServiceImpl implements ProdutoService{
 
-    private final ProdutoRepository repository = new ProdutoRepositorylmpl();
+    private final ProdutoRepository repository = new ProdutoRepositoryImpl();
 
     public void cadastrar(Produto produto) {
         if (repository.buscarPorNome(produto).isPresent()) {
@@ -34,7 +34,7 @@ public class ProdutoServicelmpl implements ProdutoService{
     }
 
     public void deletar(Produto produto){
-        Optional<Produto> p = repository.buscarPorId(produto.id);
+        Optional<Produto> p = repository.buscarPorId(produto.getId());
         if (p.isEmpty()){
             throw new IllegalArgumentException("O id não existe");
         } else {
@@ -44,14 +44,13 @@ public class ProdutoServicelmpl implements ProdutoService{
     }
 
     @Override
-    public Optional<Produto> buscar(Produto produto) {
-        Optional<Produto> p = repository.buscarPorId(produto.id);
-        if (p.isEmpty()) {
-            throw new IllegalArgumentException("O id não existe");
+    public List<Produto> buscarTodos(String produto) {
+        if (produto==null || produto.trim().isEmpty()) {
+            return repository.buscarTodos();
         }
-        return repository.buscarPorId(produto.id);
+        return repository.buscarTodos(produto);
     }
-    public List<Produto> buscarTodos(){
+    public List<Produto> buscarTodos () {
         return repository.buscarTodos();
     }
 }

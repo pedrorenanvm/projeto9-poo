@@ -1,9 +1,8 @@
 package br.edu.ufersa.projeto9poo.controller;
 
 import br.edu.ufersa.projeto9poo.models.entities.Adicional;
-import br.edu.ufersa.projeto9poo.models.services.AdicionalServicelmpl;
-import br.edu.ufersa.projeto9poo.models.services.AdicionalServicer;
-import javafx.beans.Observable;
+import br.edu.ufersa.projeto9poo.models.services.AdicionalServiceImpl;
+import br.edu.ufersa.projeto9poo.models.services.AdicionalService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -29,10 +28,9 @@ public class AdicionalController {
     private TextField textFieldAdicionalEstoque;
     @FXML
     private TextField inputAdicional;
-    private List<Adicional> listAdicionais;
     private ObservableList<Adicional> observableListAdicionais;
 
-    private AdicionalServicer adicionalServicer = new AdicionalServicelmpl();
+    private AdicionalService adicionalServicer = new AdicionalServiceImpl();
 
     @FXML
     private void initialize(){
@@ -41,10 +39,13 @@ public class AdicionalController {
         carregarLista();
         tableViewAdicional.getSelectionModel().selectedItemProperty().addListener(
                 ((observableValue, adicionalAntigo, adicionalNovo) -> selecionarTableViewAdicional(adicionalNovo)));
+        inputAdicional.setOnAction(actionEvent -> {
+            carregarLista();
+        });
     }
     private void carregarLista(){
-        List<Adicional> adicionals = adicionalServicer.buscarTodos();
-        observableListAdicionais = FXCollections.observableList(adicionals);
+        List<Adicional> adicionais = adicionalServicer.buscarTodos(inputAdicional.getText());
+        observableListAdicionais = FXCollections.observableList(adicionais);
         tableViewAdicional.setItems(observableListAdicionais);
     }
     private void selecionarTableViewAdicional(Adicional adicional) {
@@ -52,9 +53,8 @@ public class AdicionalController {
             labelAdicionalId.setText(String.valueOf(adicional.getId()));
             textFieldAdicionalNome.setText(adicional.getNome());
             textFieldAdicionalPreco.setText(String.valueOf(adicional.getPreco()));
-            textFieldAdicionalEstoque.setText(String.valueOf(adicional.getEstoque()));
+            textFieldAdicionalEstoque.setText(String.valueOf(adicional.isEstoque()));
         }
-    carregarLista();
     }
 
     private void exibirErro(String mensagem) {
