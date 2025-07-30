@@ -75,6 +75,17 @@
                 return Optional.empty();
             }
         }
+        @Override
+        public List<Cliente> buscarPorNome(String nome) {
+            try {
+                return em.createQuery(
+                                "SELECT c FROM Cliente c WHERE LOWER(c.nome) LIKE LOWER(:nome)", Cliente.class)
+                        .setParameter("nome", "%" + nome + "%")
+                        .getResultList();
+            } catch (RuntimeException e) {
+                return List.of();
+            }
+        }
 
         @Override
         public List<Cliente> buscarTodos() {

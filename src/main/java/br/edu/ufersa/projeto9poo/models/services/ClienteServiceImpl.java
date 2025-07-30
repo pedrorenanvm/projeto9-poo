@@ -28,6 +28,7 @@ public class ClienteServiceImpl implements ClienteService{
         Optional<Cliente> clienteExistente = repository.buscarTodos()
                 .stream()
                 .filter(c -> c.getTelefone().equals(cliente.getTelefone()))
+                .filter(c -> !c.getId().equals(cliente.getId()))
                 .findFirst();
 
         if(clienteExistente.isPresent()) {
@@ -45,6 +46,11 @@ public class ClienteServiceImpl implements ClienteService{
     @Override
     public Optional<Cliente> buscarPorId(Long id) {
         return repository.buscarPorId(id);
+    }
+
+    @Override
+    public List<Cliente> buscarPorNome(String nome) {
+        return repository.buscarPorNome(nome);
     }
 
     @Override

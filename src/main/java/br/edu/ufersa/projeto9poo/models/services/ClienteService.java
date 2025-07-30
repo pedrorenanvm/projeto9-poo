@@ -14,5 +14,7 @@ public interface ClienteService {
 
     Optional<Cliente> buscarPorId(Long id);
 
+    List<Cliente> buscarPorNome(String nome);
+
     List<Cliente> buscarTodos();
 }
