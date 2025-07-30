@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1158.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.projeto9poo.controller.HomeController">
+   <children>
+      <AnchorPane layoutX="-2.0" layoutY="68.0" prefHeight="700.0" prefWidth="1161.0" style="-fx-background-color: #201f24;">
+         <children>
+            <AnchorPane fx:id="AnchorPaneFaturamento" layoutX="63.0" layoutY="60.0" prefHeight="140.0" prefWidth="110.0" style="-fx-background-color: #ffff; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-color: #000000;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="280.0" text="Faturamento Do Dia">
+                     <font>
+                        <Font name="Maiandra GD" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="52.0" prefHeight="50.0" prefWidth="175.0" text="Valor">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <AnchorPane fx:id="AnchorPaneFaturamento1" layoutX="422.0" layoutY="60.0" prefHeight="140.0" prefWidth="110.0" style="-fx-background-color: #ffff; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-color: #000000;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="280.0" text="Itens em falta">
+                     <font>
+                        <Font name="Maiandra GD" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="52.0" prefHeight="50.0" prefWidth="175.0" text="Quant de itens">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="97.0" prefHeight="32.0" prefWidth="175.0" text="Quais itens em falta">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="AnchorPaneFaturamento2" layoutX="773.0" layoutY="60.0" prefHeight="140.0" prefWidth="110.0" style="-fx-background-color: #ffff; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-color: #000000;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="38.0" prefWidth="280.0" text="Pedidos Abertos">
+                     <font>
+                        <Font name="Maiandra GD" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="23.0" layoutY="52.0" prefHeight="50.0" prefWidth="216.0" text="Quant de Pedidos">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <TableView layoutX="63.0" layoutY="278.0" prefHeight="389.0" prefWidth="1009.0">
+              <columns>
+                <TableColumn prefWidth="139.00001525878906" text="N Pedido" />
+                <TableColumn minWidth="0.0" prefWidth="387.3333740234375" text="Cliente" />
+                  <TableColumn prefWidth="198.6666259765625" text="Valor" />
+                  <TableColumn prefWidth="287.0" text="Status" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <Label layoutX="24.0" layoutY="8.0" prefHeight="50.0" prefWidth="216.0" text="Olá Usuário!">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
