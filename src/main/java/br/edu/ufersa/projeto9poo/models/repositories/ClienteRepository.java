@@ -15,6 +15,8 @@ public interface ClienteRepository {
 
     Optional<Cliente> buscarPorId(Long id);
 
+    List<Cliente> buscarPorNome(String nome);
+
     List<Cliente> buscarTodos();
 
 }
