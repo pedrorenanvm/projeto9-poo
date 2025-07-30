@@ -1,120 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<BorderPane prefHeight="768.0" prefWidth="1158.0"
-            xmlns="http://javafx.com/javafx/24.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="br.edu.ufersa.projeto9poo.controller.CarrinhoController">
+    <children>
+        <BorderPane prefHeight="768.0" prefWidth="1158.0">
 
-    <left>
-        <VBox prefHeight="768.0" prefWidth="712.0" spacing="10">
-            <padding>
-                <Insets bottom="10" left="10" right="10" top="10"/>
-            </padding>
+            <left>
+                <VBox prefHeight="768.0" prefWidth="712.0" spacing="10">
+                    <padding>
+                        <Insets bottom="10" left="10" right="10" top="10"/>
+                    </padding>
 
-            <VBox spacing="5">
-                <Label text="Buscar por Data:" />
-                <DatePicker fx:id="filtroData" />
+                    <VBox spacing="5">
+                        <Label text="Buscar por Data:"/>
+                        <DatePicker fx:id="filtroData"/>
 
-                <Label text="Buscar por Produto:" />
-                <TextField fx:id="filtroProduto" promptText="Digite o nome do produto" />
+                        <Label text="Buscar por Produto:"/>
+                        <TextField fx:id="filtroProduto" promptText="Digite o nome do produto"/>
 
-                <Label text="Buscar por Cliente:" />
-                <TextField fx:id="filtroCliente" promptText="Digite o nome do cliente" />
+                        <Label text="Buscar por Cliente:"/>
+                        <TextField fx:id="filtroCliente" promptText="Digite o nome do cliente"/>
 
-                <Button fx:id="btnBuscar" onAction="#buscarCarrinhos" text="Buscar" />
-            </VBox>
+                        <Button fx:id="btnBuscar" onAction="#buscarCarrinhos" text="Buscar"/>
+                    </VBox>
 
-            <TableView fx:id="tabelaCarrinhos" prefHeight="400" prefWidth="591.0">
-                <columns>
-                    <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
-                    <TableColumn fx:id="colCliente" prefWidth="120.0" text="Cliente" />
-                    <TableColumn fx:id="colData" prefWidth="120.0" text="Data" />
-                    <TableColumn fx:id="colItens" prefWidth="75.0" text="Itens" />
-                    <TableColumn fx:id="colPagamento" prefWidth="120.0" text="Pagamento" />
-                    <TableColumn fx:id="colEstado" prefWidth="120.0" text="Estado" />
-                    <TableColumn fx:id="colValorTotal" prefWidth="120.0" text="Total (R$)" />
-                </columns>
-            </TableView>
+                    <TableView fx:id="tabelaCarrinhos" prefHeight="400" prefWidth="591.0">
+                        <columns>
+                            <TableColumn fx:id="colId" prefWidth="50.0" text="ID"/>
+                            <TableColumn fx:id="colCliente" prefWidth="120.0" text="Cliente"/>
+                            <TableColumn fx:id="colData" prefWidth="120.0" text="Data"/>
+                            <TableColumn fx:id="colItens" prefWidth="75.0" text="Itens"/>
+                            <TableColumn fx:id="colPagamento" prefWidth="120.0" text="Pagamento"/>
+                            <TableColumn fx:id="colEstado" prefWidth="120.0" text="Estado"/>
+                            <TableColumn fx:id="colValorTotal" prefWidth="120.0" text="Total (R$)"/>
+                        </columns>
+                    </TableView>
 
-            <HBox alignment="CENTER_RIGHT" spacing="10">
-                <Button fx:id="btnEditar"  text="Editar" />
-                <Button fx:id="btnExcluir"  text="Excluir" />
-            </HBox>
-        </VBox>
-    </left>
-
-    <center>
-        <VBox prefHeight="768.0" prefWidth="554.0" spacing="10">
-            <padding>
-                <Insets bottom="10" left="10" right="10" top="10" />
-            </padding>
-
-            <Label style="-fx-font-size: 16px; -fx-font-weight: bold" text="Cadastro / Edição de Carrinho" />
-
-            <Label text="Cliente:" />
-            <ComboBox fx:id="comboCliente" promptText="Selecione o cliente" />
-
-            <Label text="Tipo de Pagamento:" />
-            <ComboBox fx:id="comboPagamento" promptText="Selecione o tipo de pagamento" />
-
-            <Label text="Estado do Carrinho:" />
-            <ComboBox fx:id="comboEstado" promptText="Selecione o estado" />
-
-            <Label text="Produto:" />
-            <ComboBox fx:id="comboProduto" promptText="Selecione o produto" />
-
-            <Label text="Adicionais:" />
-            <ListView fx:id="listaAdicionais" editable="false" prefHeight="100" />
-
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <VBox spacing="5">
-                    <Label text="Quantidade:" />
-                    <Spinner fx:id="spinnerQuantidade" editable="true" prefWidth="120"/>
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Button fx:id="btnEditar" text="Editar"/>
+                        <Button fx:id="btnExcluir" text="Excluir"/>
+                    </HBox>
                 </VBox>
+            </left>
 
-                <VBox spacing="5">
-                    <Label text="Preço unitário (R$):" />
-                    <TextField fx:id="txtPrecoUnidade" promptText="ex: 12,50" prefWidth="120"/>
+            <center>
+                <VBox prefHeight="768.0" prefWidth="554.0" spacing="10">
+                    <padding>
+                        <Insets bottom="10" left="10" right="10" top="10"/>
+                    </padding>
+
+                    <Label style="-fx-font-size: 16px; -fx-font-weight: bold" text="Cadastro / Edição de Carrinho"/>
+
+                    <Label text="Cliente:"/>
+                    <ComboBox fx:id="comboCliente" promptText="Selecione o cliente"/>
+
+                    <Label text="Tipo de Pagamento:"/>
+                    <ComboBox fx:id="comboPagamento" promptText="Selecione o tipo de pagamento"/>
+
+                    <Label text="Estado do Carrinho:"/>
+                    <ComboBox fx:id="comboEstado" promptText="Selecione o estado"/>
+
+                    <Label text="Produto:"/>
+                    <ComboBox fx:id="comboProduto" promptText="Selecione o produto"/>
+
+                    <Label text="Adicionais:"/>
+                    <ListView fx:id="listaAdicionais" editable="false" prefHeight="100"/>
+
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <VBox spacing="5">
+                            <Label text="Quantidade:"/>
+                            <Spinner fx:id="spinnerQuantidade" editable="true" prefWidth="120"/>
+                        </VBox>
+
+                        <VBox spacing="5">
+                            <Label text="Preço unitário (R$):"/>
+                            <TextField fx:id="txtPrecoUnidade" prefWidth="120" promptText="ex: 12,50"/>
+                        </VBox>
+                    </HBox>
+
+                    <Button fx:id="btnAdicionarCarrinho" onAction="#adicionarItemCarrinho"
+                            text="Adicionar Item ao Carrinho"/>
+
+                    <Label text="Itens do Carrinho:"/>
+                    <TableView fx:id="tabelaItens" prefHeight="200" prefWidth="721.0">
+                        <columns>
+                            <TableColumn fx:id="colProdutoItem" prefWidth="150" text="Produto"/>
+                            <TableColumn fx:id="colAdicionaisItem" prefWidth="160" text="Adicionais"/>
+                            <TableColumn fx:id="colQuantidadeItem" prefWidth="80" text="Qtd"/>
+                            <TableColumn fx:id="colPrecoUnitarioItem" prefWidth="110" text="Unit (R$)"/>
+                            <TableColumn fx:id="colPrecoTotalItem" prefWidth="110" text="Total (R$)"/>
+                        </columns>
+                    </TableView>
+
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Button fx:id="btnRemoverItem" text="Remover item selecionado"/>
+                    </HBox>
+
+                    <HBox alignment="CENTER_RIGHT" spacing="10">
+                        <Label fx:id="appError"/>
+                        <Button fx:id="btnSalvarCarrinho" onAction="#salvarCarrinho" text="Salvar Carrinho"/>
+                        <Button fx:id="btnCancelarCarrinho" onAction="#cancelarEdicao" text="Cancelar"/>
+                    </HBox>
                 </VBox>
-            </HBox>
+            </center>
 
-            <Button fx:id="btnAdicionarCarrinho" onAction="#adicionarItemCarrinho" text="Adicionar Item ao Carrinho" />
-
-            <Label text="Itens do Carrinho:" />
-            <TableView fx:id="tabelaItens" prefHeight="200" prefWidth="721.0">
-                <columns>
-                    <TableColumn fx:id="colProdutoItem" prefWidth="150" text="Produto" />
-                    <TableColumn fx:id="colAdicionaisItem" prefWidth="160" text="Adicionais" />
-                    <TableColumn fx:id="colQuantidadeItem" prefWidth="80" text="Qtd" />
-                    <TableColumn fx:id="colPrecoUnitarioItem" prefWidth="110" text="Unit (R$)" />
-                    <TableColumn fx:id="colPrecoTotalItem" prefWidth="110" text="Total (R$)" />
-                </columns>
-            </TableView>
-
-            <HBox alignment="CENTER_RIGHT" spacing="10">
-                <Button fx:id="btnRemoverItem" text="Remover item selecionado"/>
-            </HBox>
-
-            <HBox alignment="CENTER_RIGHT" spacing="10">
-                <Label fx:id="appError" />
-                <Button fx:id="btnSalvarCarrinho" onAction="#salvarCarrinho" text="Salvar Carrinho" />
-                <Button fx:id="btnCancelarCarrinho" onAction="#cancelarEdicao" text="Cancelar" />
-            </HBox>
-        </VBox>
-    </center>
-
-</BorderPane>
+        </BorderPane>
+    </children>
+</AnchorPane>

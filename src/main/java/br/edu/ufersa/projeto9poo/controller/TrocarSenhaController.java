@@ -5,12 +5,17 @@ import br.edu.ufersa.projeto9poo.models.services.FuncionarioService;
 import br.edu.ufersa.projeto9poo.models.services.FuncionarioServiceImpl;
 import br.edu.ufersa.projeto9poo.models.services.UsuarioSenhaIncorretoException;
 import br.edu.ufersa.projeto9poo.util.Estado;
+import br.edu.ufersa.projeto9poo.view.PrincipalView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class TrocarSenhaController {
+    public AnchorPane anchorPane;
     @FXML
     private PasswordField inputSenhaAntiga;
     @FXML
@@ -38,10 +43,14 @@ public class TrocarSenhaController {
             }
             funcionario.setSenha(inputSenhaNova.getText());
             funcionarioService.trocarSenha(funcionario);
+
+            PrincipalView.home(anchorPane);
         } catch (RuntimeException e) {
             exibirError(e.getMessage());
         } catch (UsuarioSenhaIncorretoException e) {
             exibirError("Senha antiga incorreto");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -3,13 +3,15 @@ package br.edu.ufersa.projeto9poo.controller;
 import br.edu.ufersa.projeto9poo.models.entities.Funcionario;
 import br.edu.ufersa.projeto9poo.models.services.FuncionarioService;
 import br.edu.ufersa.projeto9poo.models.services.FuncionarioServiceImpl;
+import br.edu.ufersa.projeto9poo.util.Estado;
+import br.edu.ufersa.projeto9poo.view.PrincipalView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class Login {
+public class LoginController {
 
     @FXML
     private TextField txtUsuario;
@@ -29,15 +31,19 @@ public class Login {
         String senha = txtSenha.getText();
         String usuario = txtUsuario.getText();
 
-        try{
+        try {
             Funcionario funcionario = new Funcionario(usuario, senha);
             Funcionario logado = funcionarioService.logar(funcionario);
 
             // Carregar a próxima tela aqui
-        } catch(IllegalArgumentException e){
+
+            Estado.pegarInstancia().setFuncionarioLogado(logado);
+            PrincipalView.principal();
+
+        } catch (IllegalArgumentException e) {
             mostrarAlertaErro("Login inválido", e.getMessage());
 
-        }catch (Exception e){
+        } catch (Exception e) {
             mostrarAlertaErro("Error inesperado", "Ocorreu um erro ao efetuar login");
             e.printStackTrace();
         }

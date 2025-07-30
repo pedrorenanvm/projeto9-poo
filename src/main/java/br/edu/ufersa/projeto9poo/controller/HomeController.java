@@ -5,6 +5,7 @@ import br.edu.ufersa.projeto9poo.models.services.CarrinhoService;
 import br.edu.ufersa.projeto9poo.models.services.CarrinhoServiceImpl;
 import br.edu.ufersa.projeto9poo.models.services.ItemCoodinatorService;
 import br.edu.ufersa.projeto9poo.models.services.ItemCoordinatorServiceImpl;
+import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -18,6 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.List;
 
 public class HomeController {
+    @FXML
+    private Label labelOla;
     @FXML
     private Label labelValor;
     @FXML
@@ -51,6 +54,7 @@ public class HomeController {
         });
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("estado"));
 
+        labelOla.setText("Olá " + Estado.pegarInstancia().getFuncionarioLogado().orElseThrow().getUsuario());
         carregarDados();
     }
 
