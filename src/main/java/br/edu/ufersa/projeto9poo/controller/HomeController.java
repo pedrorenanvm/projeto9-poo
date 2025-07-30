@@ -1,8 +1,6 @@
 package br.edu.ufersa.projeto9poo.controller;
 
 import br.edu.ufersa.projeto9poo.models.entities.Carrinho;
-import br.edu.ufersa.projeto9poo.models.entities.Item;
-import br.edu.ufersa.projeto9poo.models.entities.TipoEstado;
 import br.edu.ufersa.projeto9poo.models.services.CarrinhoService;
 import br.edu.ufersa.projeto9poo.models.services.CarrinhoServiceImpl;
 import br.edu.ufersa.projeto9poo.models.services.ItemCoodinatorService;
@@ -17,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class HomeController {
@@ -58,15 +55,11 @@ public class HomeController {
     }
 
     private void carregarDados() {
-        LocalDate hoje = LocalDate.now();
-        List<Carrinho> carrinhos = carrinhoService.buscarTodos();
-        List<Carrinho> carrinhosHoje = carrinhos.stream()
-                .filter(c -> c.getData().equals(hoje))
-                .toList();
+        List<Carrinho> carrinhosHoje = carrinhoService.buscarTodosHoje();
 
-        labelValor.setText(String.valueOf(carrinhosHoje.stream().map(Carrinho::precoTotal).reduce(0L, Long::sum)));
-        labelItem.setText(String.valueOf(itemCoodinatorService.buscarTodos().stream().filter(Item::isEstoque).count()));
-        labelPedido.setText(String.valueOf(carrinhos.stream().filter(p -> p.getEstado().equals(TipoEstado.EM_ANDAMENTO)).count()));
+        labelValor.setText(String.valueOf(carrinhoService.somaPrecoHoje()));
+        labelItem.setText(String.valueOf(itemCoodinatorService.QuantidadeSemEstoque()));
+        labelPedido.setText(String.valueOf(carrinhoService.quantidadeAberto()));
 
         ObservableList<Carrinho> observableCarrinhosHoje = FXCollections.observableList(carrinhosHoje);
         table.setItems(observableCarrinhosHoje);

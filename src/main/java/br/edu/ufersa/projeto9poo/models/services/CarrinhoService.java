@@ -15,4 +15,14 @@ public interface CarrinhoService {
     Optional<Carrinho> buscar(Carrinho carrinho);
 
     List<Carrinho> buscarTodos();
+
+    List<Carrinho> buscarTodosHoje();
+
+    List<Carrinho> buscarTodosSemana();
+
+    List<Carrinho> buscarTodosMes();
+
+    long quantidadeAberto();
+
+    long somaPrecoHoje();
 }
