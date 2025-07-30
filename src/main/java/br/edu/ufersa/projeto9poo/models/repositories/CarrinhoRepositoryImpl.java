@@ -33,20 +33,7 @@ public class CarrinhoRepositoryImpl implements CarrinhoRepository {
         try {
             tx.begin();
 
-            Carrinho carrinhoGerenciado = em.find(Carrinho.class, carrinho.getId());
-
-            if (carrinhoGerenciado != null) {
-
-                carrinhoGerenciado.setData(carrinho.getData());
-                carrinhoGerenciado.setCliente(carrinho.getCliente());
-                carrinhoGerenciado.setPagamento(carrinho.getPagamento());
-                carrinhoGerenciado.setEstado(carrinho.getEstado());
-
-                carrinhoGerenciado.setItens(carrinho.getItens());
-            } else {
-                throw new RuntimeException("Carrinho com ID " + carrinho.getId() + " não encontrado");
-            }
-
+            em.merge(carrinho);
             tx.commit();
         } catch (RuntimeException e) {
             if (tx.isActive()) {
