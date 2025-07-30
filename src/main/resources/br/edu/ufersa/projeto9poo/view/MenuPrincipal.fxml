@@ -29,7 +29,7 @@
                            </font>
                         </Label>
                      </children></Pane>
-                  <Button layoutX="18.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleMenuHome" prefHeight="47.0" prefWidth="170.0" style="-fx-background-color: #0d0124;-fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Home" textFill="WHITE">
+                  <Button layoutX="18.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleMenuHome" prefHeight="47.0" prefWidth="170.0" style="-fx-background-color: #351A63; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Home" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -94,6 +94,18 @@
                         <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../assets/door-5-32.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="17.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleMenuRelatorio" prefHeight="47.0" prefWidth="170.0" style="-fx-background-color: #351A63; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Relatório" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../assets/file-text.png" />
                            </image>
                         </ImageView>
                      </graphic>
