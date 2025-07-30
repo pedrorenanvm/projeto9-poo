@@ -65,7 +65,8 @@ public class FuncionarioController {
         alert.showAndWait();
     }
 
-    public void criar(ActionEvent actionEvent) {
+    @FXML
+    private void criar(ActionEvent actionEvent) {
         Funcionario novoFuncionario = new Funcionario();
         try {
             novoFuncionario.setUsuario(inputUsuario.getText());
@@ -76,7 +77,8 @@ public class FuncionarioController {
         recarregarLista();
     }
 
-    public void deletar(ActionEvent actionEvent) {
+    @FXML
+    private void deletar(ActionEvent actionEvent) {
         try {
             Funcionario funcionario = table.getSelectionModel().getSelectedItem();
             if (funcionario == null) {
@@ -89,7 +91,8 @@ public class FuncionarioController {
         recarregarLista();
     }
 
-    public void resetarSenha(ActionEvent actionEvent) {
+    @FXML
+    private void resetarSenha(ActionEvent actionEvent) {
         try {
             Funcionario funcionario = table.getSelectionModel().getSelectedItem();
             if (funcionario == null) {

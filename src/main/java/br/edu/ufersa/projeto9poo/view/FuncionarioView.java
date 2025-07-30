@@ -22,7 +22,7 @@ public class FuncionarioView extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(FuncionarioView.class.getResource("/br/edu/ufersa/projeto9poo/view/Funcionario.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 800, 600);
+            scene = new Scene(fxmlLoader.load(), 1158, 768);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
