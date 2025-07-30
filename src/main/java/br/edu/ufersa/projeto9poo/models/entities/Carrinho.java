@@ -3,6 +3,7 @@ package br.edu.ufersa.projeto9poo.models.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,7 @@ import java.util.List;
 public class Carrinho {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false)
     private LocalDate data;
@@ -19,8 +20,8 @@ public class Carrinho {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemCarrinho> itens;
+    @OneToMany(mappedBy = "carrinho", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ItemCarrinho> itens = new ArrayList<>();
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -39,14 +40,36 @@ public class Carrinho {
         setPagamento(pagamento);
         setEstado(estado);
     }
+    public void adicionarItem(ItemCarrinho item) {
+        if (item == null) {
+            throw new IllegalArgumentException("O item não pode ser nulo.");
+        }
+        if (!this.itens.contains(item)) {
+
+            this.itens.add(item);
+            item.setCarrinho(this);
+        }
+    }
+
+    public void removerItem(ItemCarrinho item) {
+        if (item == null) {
+            throw new IllegalArgumentException("O item não pode ser nulo.");
+        }
+        if (this.itens.remove(item)) {
+            item.setCarrinho(null);
+        }
+    }
 
     public long precoTotal() {
         long soma = 0;
-        for (ItemCarrinho item : itens) {
-            soma += item.precoTotal();
+        if (itens != null) {
+            for (ItemCarrinho item : itens) {
+                soma += item.precoTotal();
+            }
         }
         return soma;
     }
+
 
     public void gerarNota() {
         System.out.println("Gerando nota");
@@ -56,11 +79,11 @@ public class Carrinho {
         System.out.println("Relatorio");
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         if (id < 0) {
             throw new IllegalArgumentException("O id não pode ser negativo");
         }
@@ -93,18 +116,6 @@ public class Carrinho {
         return itens;
     }
 
-    public void setItensCarrinho(List<ItemCarrinho> itens) {
-        if (itens == null || itens.isEmpty()) {
-            throw new IllegalArgumentException("O itens não pode está vazio");
-        }
-        for (ItemCarrinho item : itens) {
-            if (item == null) {
-                throw new IllegalArgumentException("O item não pode ser nulo");
-            }
-        }
-        this.itens = itens;
-    }
-
     public TipoPagamento getPagamento() {
         return pagamento;
     }
@@ -131,7 +142,18 @@ public class Carrinho {
         return itens;
     }
 
-    public void setItens(List<ItemCarrinho> itens) {
-        this.itens = itens;
+    public void setItens(List<ItemCarrinho> novosItens) {
+        if (novosItens == null) {
+            throw new IllegalArgumentException("A lista de itens não pode ser nula.");
+        }
+        this.itens.clear();
+        for (ItemCarrinho item : novosItens) {
+            this.adicionarItem(item);
+        }
     }
+
+    public void setItensCarrinho(List<ItemCarrinho> itens) {
+        setItens(itens);
+    }
+
 }

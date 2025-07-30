@@ -4,6 +4,7 @@ import br.edu.ufersa.projeto9poo.models.entities.Carrinho;
 import br.edu.ufersa.projeto9poo.models.entities.TipoEstado;
 import br.edu.ufersa.projeto9poo.models.repositories.CarrinhoRepository;
 import br.edu.ufersa.projeto9poo.models.repositories.CarrinhoRepositoryImpl;
+import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
@@ -14,29 +15,26 @@ public class CarrinhoServiceImpl implements CarrinhoService {
     private final CarrinhoRepository repo = new CarrinhoRepositoryImpl();
 
     @Override
+    @Transactional
     public void cadastrar(Carrinho carrinho) {
         repo.cadastrar(carrinho);
     }
 
     @Override
+    @Transactional
     public void editar(Carrinho carrinho) {
         if (carrinho == null) {
             throw new IllegalArgumentException("O carrinho não pode ser nulo");
         }
 
-        Optional<Carrinho> carrinhoEdita = repo.buscar(carrinho.getId());
-        if (carrinhoEdita.isEmpty()) {
-            throw new IllegalArgumentException("O id do carrinho não existe");
+        Optional<Carrinho> carrinhoExistente = repo.buscar(carrinho.getId());
+        if (carrinhoExistente.isEmpty()) {
+            throw new IllegalArgumentException("O carrinho com ID " + carrinho.getId() + " não existe");
         }
 
-        carrinhoEdita.get().setData(carrinho.getData());
-        carrinhoEdita.get().setCliente(carrinho.getCliente());
-        carrinhoEdita.get().setItensCarrinho(carrinho.getItensCarrinho());
-        carrinhoEdita.get().setPagamento(carrinho.getPagamento());
-        carrinhoEdita.get().setEstado(carrinho.getEstado());
-
-        repo.editar(carrinhoEdita.get());
+        repo.editar(carrinho);
     }
+
 
     @Override
     public void deletar(Carrinho carrinho) {
@@ -50,6 +48,14 @@ public class CarrinhoServiceImpl implements CarrinhoService {
     @Override
     public Optional<Carrinho> buscar(Carrinho carrinho) {
         return repo.buscar(carrinho.getId());
+    }
+
+    @Override
+    public Optional<Carrinho> buscarPorId(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("O ID não pode ser nulo");
+        }
+        return repo.buscar(id);
     }
 
     @Override

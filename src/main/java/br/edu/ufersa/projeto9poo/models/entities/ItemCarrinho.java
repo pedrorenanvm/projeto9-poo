@@ -24,8 +24,8 @@ public class ItemCarrinho {
     )
     private List<Adicional> adicionais;
 
-    @ManyToOne(optional=false)
-    @JoinColumn(name = "carrinho_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "carrinho_id", nullable = false)
     private Carrinho carrinho;
 
     @Column(nullable = false)

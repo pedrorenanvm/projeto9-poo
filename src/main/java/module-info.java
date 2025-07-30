@@ -14,14 +14,16 @@ module projeto9poo {
     requires jakarta.persistence;
 
     requires org.hibernate.orm.core;
+    requires java.desktop;
+    requires jakarta.transaction;
 
     opens br.edu.ufersa.projeto9poo.models.entities;
 
-    opens br.edu.ufersa.projeto9poo.app to javafx.fxml;
+    //opens br.edu.ufersa.projeto9poo.app to javafx.fxml;
     opens br.edu.ufersa.projeto9poo.view to javafx.fxml;
     opens br.edu.ufersa.projeto9poo.controller to javafx.fxml;
 
-    exports br.edu.ufersa.projeto9poo.app;
+    //exports br.edu.ufersa.projeto9poo.app;
     exports br.edu.ufersa.projeto9poo.view;
     exports br.edu.ufersa.projeto9poo.models.entities;
 }

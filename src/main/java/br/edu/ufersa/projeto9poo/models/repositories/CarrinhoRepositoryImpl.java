@@ -32,7 +32,21 @@ public class CarrinhoRepositoryImpl implements CarrinhoRepository {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(carrinho);
+
+            Carrinho carrinhoGerenciado = em.find(Carrinho.class, carrinho.getId());
+
+            if (carrinhoGerenciado != null) {
+
+                carrinhoGerenciado.setData(carrinho.getData());
+                carrinhoGerenciado.setCliente(carrinho.getCliente());
+                carrinhoGerenciado.setPagamento(carrinho.getPagamento());
+                carrinhoGerenciado.setEstado(carrinho.getEstado());
+
+                carrinhoGerenciado.setItens(carrinho.getItens());
+            } else {
+                throw new RuntimeException("Carrinho com ID " + carrinho.getId() + " não encontrado");
+            }
+
             tx.commit();
         } catch (RuntimeException e) {
             if (tx.isActive()) {
@@ -42,12 +56,20 @@ public class CarrinhoRepositoryImpl implements CarrinhoRepository {
         }
     }
 
+
     @Override
     public void deletar(Carrinho carrinho) {
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.remove(carrinho);
+
+            Carrinho carrinhoGerenciado = em.find(Carrinho.class, carrinho.getId());
+            if (carrinhoGerenciado != null) {
+                em.remove(carrinhoGerenciado);
+            } else {
+                throw new RuntimeException("Carrinho com ID " + carrinho.getId() + " não encontrado");
+            }
+
             tx.commit();
         } catch (RuntimeException e) {
             if (tx.isActive()) {
@@ -57,8 +79,9 @@ public class CarrinhoRepositoryImpl implements CarrinhoRepository {
         }
     }
 
+
     @Override
-    public Optional<Carrinho> buscar(int id) {
+    public Optional<Carrinho> buscar(Long id) {
         try {
             return Optional.of(em.createQuery("SELECT f FROM Carrinho f WHERE f.id = :id", Carrinho.class)
                     .setParameter("id", id).getSingleResult());

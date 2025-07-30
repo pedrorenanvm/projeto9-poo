@@ -12,7 +12,7 @@ public interface CarrinhoRepository {
 
     void deletar(Carrinho carrinho);
 
-    Optional<Carrinho> buscar(int id);
+    Optional<Carrinho> buscar(Long id);
 
     List<Carrinho> buscarTodos();
 }

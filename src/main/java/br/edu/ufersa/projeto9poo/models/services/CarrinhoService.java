@@ -14,6 +14,8 @@ public interface CarrinhoService {
 
     Optional<Carrinho> buscar(Carrinho carrinho);
 
+    Optional<Carrinho> buscarPorId(Long id);
+
     List<Carrinho> buscarTodos();
 
     List<Carrinho> buscarTodosHoje();
