@@ -12,8 +12,6 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
-import java.time.LocalDate;
-import java.time.temporal.WeekFields;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,11 +43,7 @@ public class RelatorioController {
 
     @FXML
     private void periodoDia(ActionEvent actionEvent) {
-        LocalDate hoje = LocalDate.now();
-        List<Carrinho> carrinhos = carrinhoService.buscarTodos();
-        List<Carrinho> carrinhosHoje = carrinhos.stream()
-                .filter(c -> c.getData().equals(hoje))
-                .toList();
+        List<Carrinho> carrinhosHoje = carrinhoService.buscarTodosHoje();
 
         Map<String, Integer> produtosQuantidade = new HashMap<>();
 
@@ -79,11 +73,7 @@ public class RelatorioController {
 
     @FXML
     private void periodoSemana(ActionEvent actionEvent) {
-        LocalDate hoje = LocalDate.now();
-        List<Carrinho> carrinhos = carrinhoService.buscarTodos();
-        List<Carrinho> carrinhosSemana = carrinhos.stream()
-                .filter(c -> c.getData().getYear() == hoje.getYear() && c.getData().get(WeekFields.ISO.weekOfYear()) == hoje.get(WeekFields.ISO.weekOfYear()))
-                .toList();
+        List<Carrinho> carrinhosSemana = carrinhoService.buscarTodosSemana();
 
         Map<String, Integer> produtosQuantidade = new HashMap<>();
 
@@ -113,11 +103,7 @@ public class RelatorioController {
 
     @FXML
     private void periodoMes(ActionEvent actionEvent) {
-        LocalDate hoje = LocalDate.now();
-        List<Carrinho> carrinhos = carrinhoService.buscarTodos();
-        List<Carrinho> carrinhosMes = carrinhos.stream()
-                .filter(c -> c.getData().getYear() == hoje.getYear() && c.getData().getMonth() == hoje.getMonth())
-                .toList();
+        List<Carrinho> carrinhosMes = carrinhoService.buscarTodosMes();
 
         Map<String, Integer> produtosQuantidade = new HashMap<>();
 

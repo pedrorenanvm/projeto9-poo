@@ -1,16 +1,14 @@
 package br.edu.ufersa.projeto9poo.models.services;
 
+import br.edu.ufersa.projeto9poo.models.entities.Adicional;
 import br.edu.ufersa.projeto9poo.models.entities.Item;
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
-import br.edu.ufersa.projeto9poo.models.entities.Adicional;
 import br.edu.ufersa.projeto9poo.models.factories.ItemFactory;
-import br.edu.ufersa.projeto9poo.models.repositories.AdicionalRepositoryImpl;
-import br.edu.ufersa.projeto9poo.models.repositories.ProdutoRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemCoordinatorServiceImpl implements ItemCoodinatorService{
+public class ItemCoordinatorServiceImpl implements ItemCoodinatorService {
     private final ItemFactory itemFactory;
     private final ProdutoService produtoService;
     private final AdicionalService adicionalService;
@@ -31,11 +29,11 @@ public class ItemCoordinatorServiceImpl implements ItemCoodinatorService{
 
     @Override
     public void cadastrar(String tipo, String nome, long preco, boolean estoque) {
-        Item item = itemFactory.criarItem(tipo,nome,preco,estoque);
-        if (item instanceof Produto){
+        Item item = itemFactory.criarItem(tipo, nome, preco, estoque);
+        if (item instanceof Produto) {
             produtoService.cadastrar((Produto) item);
-        } else if (item instanceof Adicional){
-            adicionalService.cadastrar((Adicional) item );
+        } else if (item instanceof Adicional) {
+            adicionalService.cadastrar((Adicional) item);
         }
     }
 
@@ -70,4 +68,8 @@ public class ItemCoordinatorServiceImpl implements ItemCoodinatorService{
         return todosItens;
     }
 
+    @Override
+    public long QuantidadeSemEstoque() {
+        return buscarTodos().stream().filter(Item::isEstoque).count();
+    }
 }
