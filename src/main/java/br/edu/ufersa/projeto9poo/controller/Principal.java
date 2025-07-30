@@ -51,6 +51,10 @@ public class Principal {
         Parent root = FXMLLoader.load(getClass().getResource("/br/edu/ufersa/projeto9poo/view/Home.fxml"));
         anchorPane.getChildren().setAll(root);
     }
+    public void handleMenuRelatorio() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/br/edu/ufersa/projeto9poo/view/Relatorio.fxml"));
+        anchorPane.getChildren().setAll(root);
+    }
     private void exibirErro(String mensagem) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erro Home");
