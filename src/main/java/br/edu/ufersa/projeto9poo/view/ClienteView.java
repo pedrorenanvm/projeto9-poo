@@ -7,24 +7,24 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ClienteCadastroView extends Application {
+public class ClienteView extends Application {
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage stage) {
-        abrirTelaCadastroCliente(stage);
+        abrirTelaCliente(stage);
     }
 
-    public static void abrirTelaCadastroCliente(Stage stage) {
-        FXMLLoader loader = new FXMLLoader(ClienteCadastroView.class.getResource(
-                "/br/edu/ufersa/projeto9poo/view/ClienteCadastro.fxml"
+    public static void abrirTelaCliente(Stage stage) {
+        FXMLLoader loader = new FXMLLoader(ClienteView.class.getResource(
+                "/br/edu/ufersa/projeto9poo/view/Cliente.fxml"
         ));
 
         try {
-            Scene scene = new Scene(loader.load(), 800, 600);
-            stage.setTitle("Cadastrar Cliente");
+            Scene scene = new Scene(loader.load(), 1158, 768);
+            stage.setTitle("Cliente");
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
