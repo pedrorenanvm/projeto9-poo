@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="914.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.projeto9poo.controller.Principal">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.projeto9poo.controller.Principal">
    <children>
       <VBox fx:id="root" prefHeight="540.0" prefWidth="208.0">
          <children>
-            <AnchorPane fx:id="sideAnchorPane" prefHeight="742.0" prefWidth="208.0" style="-fx-background-color: #351A63; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 20px; -fx-background-radius: 20px; -fx-border-style: solid;">
+            <AnchorPane fx:id="sideAnchorPane" prefHeight="768.0" prefWidth="208.0" style="-fx-background-color: #351A63; -fx-border-width: 2px 2px 2px 2px; -fx-border-style: solid;">
                <children>
                   <Pane layoutX="12.0" layoutY="14.0" prefHeight="54.0" prefWidth="185.0" style="-fx-background-color: #6c05f2; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-style: solid; -fx-border-color: #6c05f2;">
                      <children>
@@ -29,7 +29,7 @@
                            </font>
                         </Label>
                      </children></Pane>
-                  <Button layoutX="18.0" layoutY="81.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="170.0" style="-fx-background-color: #0d0124;-fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Home" textFill="WHITE">
+                  <Button layoutX="18.0" layoutY="81.0" mnemonicParsing="false" onAction="#handleMenuHome" prefHeight="47.0" prefWidth="170.0" style="-fx-background-color: #0d0124;-fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Home" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -89,7 +89,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="11.0" layoutY="679.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="91.0" style="-fx-background-color: EE2525; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Sair" textFill="WHITE">
+                  <Button layoutX="11.0" layoutY="707.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="91.0" style="-fx-background-color: EE2525; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 10px; -fx-background-radius: 10px;" text="Sair" textFill="WHITE">
                      <graphic>
                         <ImageView fitHeight="31.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -105,6 +105,6 @@
             </AnchorPane>
          </children>
       </VBox>
-      <AnchorPane fx:id="anchorPane" prefHeight="759.0" prefWidth="706.0" />
+      <AnchorPane fx:id="anchorPane" prefHeight="768.0" prefWidth="1160.0" style="-fx-background-color: #86838a;" />
    </children>
 </HBox>

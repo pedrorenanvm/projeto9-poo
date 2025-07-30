@@ -2,10 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12"
+<AnchorPane prefHeight="768.0" prefWidth="1158.0" xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.projeto9poo.controller.NotaController">
     <children>
-        <GridPane layoutX="283.0" layoutY="14.0" prefHeight="200.0" prefWidth="235.0" AnchorPane.topAnchor="20.0">
+        <GridPane layoutX="412.0" layoutY="25.0" prefHeight="200.0" prefWidth="235.0" AnchorPane.topAnchor="20.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="144.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="56.0"/>
@@ -38,7 +38,7 @@
                    AnchorPane.topAnchor="240.0">
             <columns>
                 <TableColumn fx:id="columnId" prefWidth="75.0" text="id"/>
-                <TableColumn fx:id="columnProduto" prefWidth="460.0" text="produto"/>
+                <TableColumn fx:id="columnProduto" prefWidth="820.0" text="produto"/>
                 <TableColumn fx:id="columnQuantidade" minWidth="0.0" prefWidth="75.0" text="quantidade"/>
                 <TableColumn fx:id="columnPreco" minWidth="0.0" prefWidth="75.0" text="preço"/>
                 <TableColumn fx:id="columnTotal" prefWidth="75.0" text="total"/>

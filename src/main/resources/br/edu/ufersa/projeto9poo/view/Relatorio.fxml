@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="768.0" prefWidth="1158.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="br.edu.ufersa.projeto9poo.controller.RelatorioController">
+    <children>
+        <MenuButton layoutX="542.0" layoutY="38.0" mnemonicParsing="false" text="Periodo" AnchorPane.topAnchor="20.0">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#periodoDia" text="Dia"/>
+                <MenuItem mnemonicParsing="false" onAction="#periodoSemana" text="Semana"/>
+                <MenuItem mnemonicParsing="false" onAction="#periodoMes" text="Mes"/>
+            </items>
+        </MenuButton>
+        <GridPane layoutX="479.0" layoutY="62.0" AnchorPane.topAnchor="60.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Label text="Total de pedidos"/>
+                <Label fx:id="labelPedidos" GridPane.columnIndex="1"/>
+            </children>
+        </GridPane>
+        <BarChart fx:id="barPedidos" layoutX="42.0" layoutY="284.0" title="Produtos mais vendidos"
+                  AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+                  AnchorPane.topAnchor="120.0">
+            <xAxis>
+                <CategoryAxis fx:id="produtoAxis" side="BOTTOM"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="quantidadeAxis" side="LEFT"/>
+            </yAxis>
+        </BarChart>
+    </children>
+</AnchorPane>

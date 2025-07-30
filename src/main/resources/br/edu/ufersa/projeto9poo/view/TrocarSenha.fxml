@@ -2,11 +2,11 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12"
+<AnchorPane prefHeight="768.0" prefWidth="1158.0" xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="br.edu.ufersa.projeto9poo.controller.TrocarSenhaController">
     <children>
-        <GridPane layoutX="300.0" layoutY="255.0">
+        <GridPane layoutX="479.0" layoutY="325.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
@@ -25,6 +25,6 @@
                 <PasswordField fx:id="inputVerificar" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
             </children>
         </GridPane>
-        <Button layoutX="375.0" layoutY="370.0" mnemonicParsing="false" onAction="#trocarSenha" text="Trocar"/>
+        <Button layoutX="554.0" layoutY="430.0" mnemonicParsing="false" onAction="#trocarSenha" text="Trocar"/>
     </children>
 </AnchorPane>
