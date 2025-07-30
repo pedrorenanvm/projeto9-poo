@@ -1,8 +1,8 @@
 package br.edu.ufersa.projeto9poo.view;
 
-import br.edu.ufersa.projeto9poo.controller.TrocarSenhaController;
 import br.edu.ufersa.projeto9poo.models.entities.Funcionario;
 import br.edu.ufersa.projeto9poo.models.services.FuncionarioServiceImpl;
+import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,16 +20,15 @@ public class TrocarSenhaView extends Application {
     public void start(Stage stage) {
         Funcionario funcionario = (new FuncionarioServiceImpl()).buscarTodos("").getFirst();
         System.out.println(funcionario.getUsuario());
-        trocar(stage, funcionario);
+        Estado.pegarInstancia().setFuncionarioLogado(funcionario);
+        trocar(stage);
     }
 
-    public static void trocar(Stage stage, Funcionario funcionario) {
+    public static void trocar(Stage stage) {
         FXMLLoader fxmlLoader = new FXMLLoader(FuncionarioView.class.getResource("/br/edu/ufersa/projeto9poo/view/TrocarSenha.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 800, 600);
-            TrocarSenhaController controller = fxmlLoader.getController();
-            controller.setFuncionario(funcionario);
+            scene = new Scene(fxmlLoader.load(), 1158, 768);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

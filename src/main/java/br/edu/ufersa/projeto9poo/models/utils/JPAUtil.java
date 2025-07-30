@@ -7,10 +7,11 @@ import jakarta.persistence.Persistence;
 public class JPAUtil {
     private static volatile JPAUtil instance;
     private static final String PERSISTENCE_UNIT_NAME = "acaiteria";
-    private final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+    private final EntityManagerFactory emf;
 
     private JPAUtil() {
         System.out.println("Executando o construtor do JPAUtil");
+        this.emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
     }
 
     private static JPAUtil pegarInstancia() {

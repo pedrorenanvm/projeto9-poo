@@ -4,6 +4,7 @@ import br.edu.ufersa.projeto9poo.models.entities.Funcionario;
 import br.edu.ufersa.projeto9poo.models.services.FuncionarioService;
 import br.edu.ufersa.projeto9poo.models.services.FuncionarioServiceImpl;
 import br.edu.ufersa.projeto9poo.models.services.UsuarioSenhaIncorretoException;
+import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -17,9 +18,7 @@ public class TrocarSenhaController {
     @FXML
     private PasswordField inputVerificar;
 
-    private Funcionario funcionario;
-
-    private FuncionarioService funcionarioService = new FuncionarioServiceImpl();
+    private final FuncionarioService funcionarioService = new FuncionarioServiceImpl();
 
     private void exibirError(String mensagem) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -28,8 +27,10 @@ public class TrocarSenhaController {
         alert.showAndWait();
     }
 
-    public void trocarSenha(ActionEvent actionEvent) {
+    @FXML
+    private void trocarSenha(ActionEvent actionEvent) {
         try {
+            Funcionario funcionario = Estado.pegarInstancia().getFuncionarioLogado().orElseThrow();
             funcionario.setSenha(inputSenhaAntiga.getText());
             funcionarioService.logar(funcionario);
             if (!inputSenhaNova.getText().equals(inputVerificar.getText())) {
@@ -42,12 +43,5 @@ public class TrocarSenhaController {
         } catch (UsuarioSenhaIncorretoException e) {
             exibirError("Senha antiga incorreto");
         }
-    }
-
-    public void setFuncionario(Funcionario funcionario) {
-        if (funcionario == null) {
-            throw new IllegalArgumentException("O funcionario não pode ser nulo");
-        }
-        this.funcionario = funcionario;
     }
 }

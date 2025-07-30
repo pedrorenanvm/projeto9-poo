@@ -3,6 +3,7 @@ package br.edu.ufersa.projeto9poo.view;
 import br.edu.ufersa.projeto9poo.controller.NotaController;
 import br.edu.ufersa.projeto9poo.models.entities.Carrinho;
 import br.edu.ufersa.projeto9poo.models.services.CarrinhoServiceImpl;
+import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,17 +21,16 @@ public class NotaView extends Application {
     public void start(Stage stage) {
         Carrinho carrinho = (new CarrinhoServiceImpl()).buscarTodos().getFirst();
         System.out.println(carrinho.getId());
-        trocar(stage, carrinho);
+        Estado.pegarInstancia().setCarrinhoNota(carrinho);
+        trocar(stage);
     }
 
-    public static void trocar(Stage stage, Carrinho carrinho) {
+    public static void trocar(Stage stage) {
         FXMLLoader fxmlLoader = new FXMLLoader(NotaView.class.getResource("/br/edu/ufersa/projeto9poo/view/Nota.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 800, 600);
+            scene = new Scene(fxmlLoader.load(), 1158, 768);
             NotaController controller = fxmlLoader.getController();
-            controller.setCarrinho(carrinho);
-            controller.carregar();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

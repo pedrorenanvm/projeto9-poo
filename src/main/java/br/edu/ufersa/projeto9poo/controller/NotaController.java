@@ -3,6 +3,7 @@ package br.edu.ufersa.projeto9poo.controller;
 import br.edu.ufersa.projeto9poo.models.entities.Adicional;
 import br.edu.ufersa.projeto9poo.models.entities.Carrinho;
 import br.edu.ufersa.projeto9poo.models.entities.ItemCarrinho;
+import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
@@ -41,8 +42,6 @@ public class NotaController {
     @FXML
     private TableColumn<ItemCarrinho, Long> columnTotal;
 
-    private Carrinho carrinho;
-
     @FXML
     private void initialize() {
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -61,9 +60,13 @@ public class NotaController {
             ItemCarrinho item = param.getValue();
             return new ReadOnlyObjectWrapper<Long>(item.precoTotal());
         });
+
+        carregar();
     }
 
-    public void carregar() {
+    private void carregar() {
+        Carrinho carrinho = Estado.pegarInstancia().getCarrinhoNota().orElseThrow();
+
         List<ItemCarrinho> itens = carrinho.getItensCarrinho();
         ObservableList<ItemCarrinho> observableItemCarrinho = FXCollections.observableList(itens);
         table.setItems(observableItemCarrinho);
@@ -76,7 +79,4 @@ public class NotaController {
         labelTotal.setText(String.valueOf(carrinho.precoTotal()));
     }
 
-    public void setCarrinho(Carrinho carrinho) {
-        this.carrinho = carrinho;
-    }
 }
