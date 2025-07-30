@@ -37,6 +37,12 @@
             <version>3.1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+
         <!-- JavaFx -->
         <dependency>
             <groupId>org.openjfx</groupId>
