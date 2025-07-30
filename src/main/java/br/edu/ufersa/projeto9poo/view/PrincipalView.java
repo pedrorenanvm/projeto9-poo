@@ -1,5 +1,8 @@
 package br.edu.ufersa.projeto9poo.view;
 
+import br.edu.ufersa.projeto9poo.models.entities.Administrador;
+import br.edu.ufersa.projeto9poo.models.services.FuncionarioService;
+import br.edu.ufersa.projeto9poo.models.services.FuncionarioServiceImpl;
 import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +18,18 @@ public class PrincipalView extends Application {
     private static Stage stage;
 
     public static void main(String[] args) {
+
+        FuncionarioService funcionarioService = new FuncionarioServiceImpl();
+
+        Administrador admin = new Administrador();
+        admin.setUsuario("admin");
+
+        try {
+            funcionarioService.cadastrar(admin);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
         launch(args);
     }
 
