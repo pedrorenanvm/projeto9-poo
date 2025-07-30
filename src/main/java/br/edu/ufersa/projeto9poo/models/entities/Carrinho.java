@@ -126,4 +126,12 @@ public class Carrinho {
         }
         this.estado = estado;
     }
+
+    public List<ItemCarrinho> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemCarrinho> itens) {
+        this.itens = itens;
+    }
 }
