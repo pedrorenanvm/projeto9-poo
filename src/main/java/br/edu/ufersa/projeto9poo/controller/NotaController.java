@@ -14,7 +14,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class NotaController {
     @FXML
@@ -41,6 +44,9 @@ public class NotaController {
     private TableColumn<ItemCarrinho, Long> columnPreco;
     @FXML
     private TableColumn<ItemCarrinho, Long> columnTotal;
+
+    private final DateTimeFormatter fmtData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final NumberFormat fmtMoeda = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
 
     @FXML
     private void initialize() {
@@ -73,10 +79,10 @@ public class NotaController {
 
         labelId.setText(String.valueOf(carrinho.getId()));
         labelCliente.setText(carrinho.getCliente().getNome());
-        labelData.setText(carrinho.getData().toString());
+        labelData.setText(carrinho.getData().format(fmtData));
         labelEstado.setText(carrinho.getEstado().toString());
         labelTipoPagamento.setText(carrinho.getPagamento().toString());
-        labelTotal.setText(String.valueOf(carrinho.precoTotal()));
+        labelTotal.setText(fmtMoeda.format(carrinho.precoTotal()));
     }
 
 }
