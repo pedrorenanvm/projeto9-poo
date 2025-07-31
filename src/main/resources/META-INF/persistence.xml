@@ -11,10 +11,10 @@
         <class>br.edu.ufersa.projeto9poo.models.entities.Administrador</class>
         <class>br.edu.ufersa.projeto9poo.models.entities.Cliente</class>
         <class>br.edu.ufersa.projeto9poo.models.entities.Funcionario</class>
-        <class>br.edu.ufersa.projeto9poo.models.entities.Pedido</class>
-        <class>br.edu.ufersa.projeto9poo.models.entities.Pedido</class>
+        <class>br.edu.ufersa.projeto9poo.models.entities.Carrinho</class>
+        <class>br.edu.ufersa.projeto9poo.models.entities.Carrinho</class>
         <class>br.edu.ufersa.projeto9poo.models.entities.Produto</class>
-        <class>br.edu.ufersa.projeto9poo.models.entities.ProdutoPedido</class>
+        <class>br.edu.ufersa.projeto9poo.models.entities.ItemCarrinho</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

@@ -3,7 +3,7 @@ package br.edu.ufersa.projeto9poo.models.utils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 
-public class AppError {
+public class AppErrorException {
     private static Label label;
 
     public static void setLabel(Label lbl) {

@@ -11,7 +11,7 @@ import br.edu.ufersa.projeto9poo.models.services.ProdutoServiceImpl;
 import br.edu.ufersa.projeto9poo.models.services.AdicionalService;
 import br.edu.ufersa.projeto9poo.models.services.AdicionalServiceImpl;
 
-import br.edu.ufersa.projeto9poo.models.utils.AppError;
+import br.edu.ufersa.projeto9poo.models.utils.AppErrorException;
 import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,7 +82,7 @@ public class CarrinhoController {
     @FXML
     private void initialize() {
 
-        AppError.setLabel(appError);
+        AppErrorException.setLabel(appError);
 
         configurarColunas();
         configurarSpinnerQuantidade();
@@ -207,14 +207,14 @@ public class CarrinhoController {
             List<Cliente> clientes = clienteService.buscarTodos();
             comboCliente.setItems(FXCollections.observableArrayList(clientes));
         } catch (Exception e) {
-            AppError.erro("Falha ao carregar clientes.");
+            AppErrorException.erro("Falha ao carregar clientes.");
         }
 
         try {
             List<Produto> produtos = produtoService.buscarTodos();
             comboProduto.setItems(FXCollections.observableArrayList(produtos));
         } catch (Exception e) {
-            AppError.erro("Falha ao carregar produtos.");
+            AppErrorException.erro("Falha ao carregar produtos.");
         }
 
         try {
@@ -222,7 +222,7 @@ public class CarrinhoController {
             listaAdicionais.setItems(FXCollections.observableArrayList(adicionais));
             listaAdicionais.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         } catch (Exception e) {
-            AppError.erro("Falha ao carregar adicionais.");
+            AppErrorException.erro("Falha ao carregar adicionais.");
         }
 
         aplicarMascaraMonetaria(txtPrecoUnidade);
@@ -249,9 +249,9 @@ public class CarrinhoController {
                             .thenComparing(Carrinho::getId).reversed())
                     .toList();
             tabelaCarrinhos.setItems(FXCollections.observableArrayList(lista));
-            AppError.limpar();
+            AppErrorException.limpar();
         } catch (Exception e) {
-            AppError.erro("Falha ao carregar carrinhos.");
+            AppErrorException.erro("Falha ao carregar carrinhos.");
         }
     }
 
@@ -281,16 +281,16 @@ public class CarrinhoController {
                     .toList();
 
             tabelaCarrinhos.setItems(FXCollections.observableArrayList(filtrados));
-            AppError.limpar();
+            AppErrorException.limpar();
         } catch (Exception e) {
-            AppError.erro("Erro ao buscar carrinhos.");
+            AppErrorException.erro("Erro ao buscar carrinhos.");
         }
     }
 
     private void selecionarCarrinhoNaTabela() {
         carrinhoSelecionado = tabelaCarrinhos.getSelectionModel().getSelectedItem();
         if (carrinhoSelecionado != null) {
-            AppError.limpar();
+            AppErrorException.limpar();
         }
     }
     @FXML
@@ -330,13 +330,13 @@ public class CarrinhoController {
     }
     private void preencherFormularioParaEdicao() {
         if (carrinhoSelecionado == null) {
-            AppError.erro("Selecione um carrinho na tabela para editar.");
+            AppErrorException.erro("Selecione um carrinho na tabela para editar.");
             return;
         }
 
         Optional<Carrinho> carrinhoDoBanco = carrinhoService.buscarPorId(carrinhoSelecionado.getId());
         if (carrinhoDoBanco.isEmpty()) {
-            AppError.erro("Carrinho selecionado não encontrado no banco de dados.");
+            AppErrorException.erro("Carrinho selecionado não encontrado no banco de dados.");
             return;
         }
         carrinhoSelecionado = carrinhoDoBanco.get();
@@ -350,12 +350,12 @@ public class CarrinhoController {
         } else {
             itensCarrinho.clear();
         }
-        AppError.limpar();
+        AppErrorException.limpar();
     }
 
     private void excluirCarrinho() {
         if (carrinhoSelecionado == null) {
-            AppError.erro("Selecione um carrinho para excluir.");
+            AppErrorException.erro("Selecione um carrinho para excluir.");
             return;
         }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -367,12 +367,12 @@ public class CarrinhoController {
             if (result == ButtonType.OK) {
                 try {
                     carrinhoService.deletar(carrinhoSelecionado);
-                    AppError.sucesso("Carrinho deletado com sucesso!");
+                    AppErrorException.sucesso("Carrinho deletado com sucesso!");
                     carrinhoSelecionado = null;
                     carregarCarrinhos();
                     novoCarrinho();
                 } catch (Exception e) {
-                    AppError.erro("Erro ao deletar carrinho.");
+                    AppErrorException.erro("Erro ao deletar carrinho.");
                 }
             }
         });
@@ -381,13 +381,13 @@ public class CarrinhoController {
     @FXML
     private void adicionarItemCarrinho() {
         Produto produto = comboProduto.getValue();
-        if (produto == null) { AppError.erro("Selecione um produto."); return; }
+        if (produto == null) { AppErrorException.erro("Selecione um produto."); return; }
 
         Integer qtd = spinnerQuantidade.getValue();
-        if (qtd == null || qtd <= 0) { AppError.erro("Quantidade deve ser maior que zero."); return; }
+        if (qtd == null || qtd <= 0) { AppErrorException.erro("Quantidade deve ser maior que zero."); return; }
 
         Long precoUnidade = parsePreco(txtPrecoUnidade.getText());
-        if (precoUnidade == null || precoUnidade <= 0) { AppError.erro("Informe um preço unitário válido."); return; }
+        if (precoUnidade == null || precoUnidade <= 0) { AppErrorException.erro("Informe um preço unitário válido."); return; }
 
         ItemCarrinho item = new ItemCarrinho();
         item.setProduto(produto);
@@ -404,42 +404,42 @@ public class CarrinhoController {
         txtPrecoUnidade.clear();
         listaAdicionais.getSelectionModel().clearSelection();
 
-        AppError.sucesso("Item adicionado.");
+        AppErrorException.sucesso("Item adicionado.");
     }
 
     @FXML
     private void removerItemSelecionado() {
         ItemCarrinho selecionado = tabelaItens.getSelectionModel().getSelectedItem();
         if (selecionado == null) {
-            AppError.erro("Selecione um item para remover.");
+            AppErrorException.erro("Selecione um item para remover.");
             return;
         }
         itensCarrinho.remove(selecionado);
-        AppError.sucesso("Item removido.");
+        AppErrorException.sucesso("Item removido.");
     }
 
     @FXML
     private void salvarCarrinho() {
         Cliente cliente = comboCliente.getValue();
         if (cliente == null) {
-            AppError.erro("Selecione um cliente.");
+            AppErrorException.erro("Selecione um cliente.");
             return;
         }
 
         TipoPagamento pagamento = comboPagamento.getValue();
         if (pagamento == null) {
-            AppError.erro("Selecione o tipo de pagamento.");
+            AppErrorException.erro("Selecione o tipo de pagamento.");
             return;
         }
 
         TipoEstado estado = comboEstado.getValue();
         if (estado == null) {
-            AppError.erro("Selecione o estado do carrinho.");
+            AppErrorException.erro("Selecione o estado do carrinho.");
             return;
         }
 
         if (itensCarrinho.isEmpty()) {
-            AppError.erro("Adicione pelo menos um item ao carrinho.");
+            AppErrorException.erro("Adicione pelo menos um item ao carrinho.");
             return;
         }
 
@@ -468,11 +468,11 @@ public class CarrinhoController {
 
             if (isEdicao) {
                 carrinhoService.editar(carrinhoParaSalvar);
-                AppError.sucesso("Carrinho atualizado com sucesso!");
+                AppErrorException.sucesso("Carrinho atualizado com sucesso!");
                 System.out.println("DEBUG: Carrinho editado");
             } else {
                 carrinhoService.cadastrar(carrinhoParaSalvar);
-                AppError.sucesso("Carrinho cadastrado com sucesso!");
+                AppErrorException.sucesso("Carrinho cadastrado com sucesso!");
                 System.out.println("DEBUG: Carrinho cadastrado");
             }
 
@@ -481,11 +481,11 @@ public class CarrinhoController {
 
         } catch (IllegalArgumentException ex) {
             System.err.println("ERRO: Argumento inválido - " + ex.getMessage());
-            AppError.erro("Dados inválidos: " + ex.getMessage());
+            AppErrorException.erro("Dados inválidos: " + ex.getMessage());
         } catch (Exception ex) {
             System.err.println("ERRO: Falha ao salvar carrinho - " + ex.getMessage());
             ex.printStackTrace();
-            AppError.erro("Erro ao salvar carrinho. Verifique os dados e tente novamente.\n" + ex.getMessage());
+            AppErrorException.erro("Erro ao salvar carrinho. Verifique os dados e tente novamente.\n" + ex.getMessage());
         }
     }
 
@@ -498,7 +498,7 @@ public class CarrinhoController {
         spinnerQuantidade.getValueFactory().setValue(1);
         txtPrecoUnidade.clear();
         listaAdicionais.getSelectionModel().clearSelection();
-        AppError.limpar();
+        AppErrorException.limpar();
     }
 
     @FXML

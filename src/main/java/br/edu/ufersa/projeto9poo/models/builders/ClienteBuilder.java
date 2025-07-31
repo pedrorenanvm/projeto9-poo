@@ -26,7 +26,7 @@ public final class ClienteBuilder {
         return this;
     }
 
-    // útil para edição/clonagem
+
     public static ClienteBuilder from(Cliente c) {
         return builder()
                 .nome(c.getNome())
@@ -49,7 +49,6 @@ public final class ClienteBuilder {
         e = e.trim();
         t = t.trim();
 
-        // Usa o construtor atual da sua entidade
         return new Cliente(n, e, t);
     }
 

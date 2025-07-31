@@ -4,7 +4,7 @@ import br.edu.ufersa.projeto9poo.models.builders.ClienteBuilder;
 import br.edu.ufersa.projeto9poo.models.entities.Cliente;
 import br.edu.ufersa.projeto9poo.models.services.ClienteService;
 import br.edu.ufersa.projeto9poo.models.services.ClienteServiceImpl;
-import br.edu.ufersa.projeto9poo.models.utils.AppError;
+import br.edu.ufersa.projeto9poo.models.utils.AppErrorException;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -34,7 +34,7 @@ public class ClienteController {
 
     @FXML
     private void initialize() {
-        AppError.setLabel(appError);
+        AppErrorException.setLabel(appError);
         configurarColunas();
         carregarClientes();
         configurarEventos();
@@ -77,7 +77,7 @@ public class ClienteController {
             txtNome.setText(clienteSelecionado.getNome());
             txtEndereco.setText(clienteSelecionado.getEndereco());
             txtTelefone.setText(clienteSelecionado.getTelefone());
-            AppError.limpar();
+            AppErrorException.limpar();
         }
     }
 
@@ -87,12 +87,12 @@ public class ClienteController {
         String telefone = txtTelefone.getText();
 
         if (nome.isEmpty() || endereco.isEmpty() || telefone.isEmpty()) {
-            AppError.erro("Preencha todos os campos!");
+            AppErrorException.erro("Preencha todos os campos!");
             return;
         }
 
         if (!validarTelefone(telefone)) {
-            AppError.erro("Telefone inválido! Use o formato (99) 99999-9999 ou (99) 9999-9999.");
+            AppErrorException.erro("Telefone inválido! Use o formato (99) 99999-9999 ou (99) 9999-9999.");
             return;
         }
 
@@ -104,20 +104,20 @@ public class ClienteController {
                     .build();
 
             clienteService.cadastrar(novoCliente);
-            AppError.sucesso("Cliente cadastrado com sucesso!");
+            AppErrorException.sucesso("Cliente cadastrado com sucesso!");
             limparCampos();
             carregarClientes();
         } catch (IllegalArgumentException ex) {
-            AppError.erro(ex.getMessage());
+            AppErrorException.erro(ex.getMessage());
         } catch (Exception ex) {
             ex.printStackTrace();
-            AppError.erro("Erro ao cadastrar cliente.");
+            AppErrorException.erro("Erro ao cadastrar cliente.");
         }
     }
 
     private void editarCliente() {
         if (clienteSelecionado == null) {
-            AppError.erro("Selecione um cliente para editar.");
+            AppErrorException.erro("Selecione um cliente para editar.");
             return;
         }
 
@@ -126,11 +126,11 @@ public class ClienteController {
         String telefone = txtTelefone.getText();
 
         if (nome.isEmpty() || endereco.isEmpty() || telefone.isEmpty()) {
-            AppError.erro("Preencha todos os campos para editar.");
+            AppErrorException.erro("Preencha todos os campos para editar.");
             return;
         }
         if (!validarTelefone(telefone)) {
-            AppError.erro("Telefone inválido! Use o formato (99) 99999-9999 ou (99) 9999-9999.");
+            AppErrorException.erro("Telefone inválido! Use o formato (99) 99999-9999 ou (99) 9999-9999.");
             return;
         }
         clienteSelecionado.setNome(nome);
@@ -139,7 +139,7 @@ public class ClienteController {
 
         try {
             clienteService.editar(clienteSelecionado);
-            AppError.sucesso("Cliente atualizado com sucesso!");
+            AppErrorException.sucesso("Cliente atualizado com sucesso!");
 
             limparCampos();
             campoBusca.clear();
@@ -147,16 +147,16 @@ public class ClienteController {
 
             clienteSelecionado = null;
         } catch (IllegalArgumentException ex) {
-            AppError.erro(ex.getMessage());
+            AppErrorException.erro(ex.getMessage());
         } catch (Exception ex) {
             ex.printStackTrace();
-            AppError.erro("Erro ao atualizar cliente.");
+            AppErrorException.erro("Erro ao atualizar cliente.");
         }
     }
 
     private void deletarCliente() {
         if (clienteSelecionado == null) {
-            AppError.erro("Selecione um cliente para deletar.");
+            AppErrorException.erro("Selecione um cliente para deletar.");
             return;
         }
 
@@ -169,13 +169,13 @@ public class ClienteController {
             if (result == ButtonType.OK) {
                 try {
                     clienteService.deletar(clienteSelecionado);
-                    AppError.sucesso("Cliente deletado com sucesso!");
+                    AppErrorException.sucesso("Cliente deletado com sucesso!");
                     limparCampos();
                     carregarClientes();
                     clienteSelecionado = null;
                 } catch (Exception e) {
                     e.printStackTrace();
-                    AppError.erro("Erro ao deletar cliente.");
+                    AppErrorException.erro("Erro ao deletar cliente.");
                 }
             }
         });
@@ -185,7 +185,7 @@ public class ClienteController {
         txtNome.clear();
         txtEndereco.clear();
         txtTelefone.clear();
-        AppError.limpar();
+        AppErrorException.limpar();
     }
 
     private boolean validarTelefone(String telefone) {

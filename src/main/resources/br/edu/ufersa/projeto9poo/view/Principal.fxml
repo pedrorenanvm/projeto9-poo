@@ -32,7 +32,7 @@
             <Button contentDisplay="TOP" layoutX="627.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleMenuFuncionario" prefHeight="130.0" prefWidth="130.0" style="-fx-background-color: #5d0c9e; -fx-background-radius: 20;" text="Funcionário" textFill="white">
                <font>
                   <Font name="System Bold" size="20.0" />
-               </font>
+               </font>+
             </Button>
             <Button fx:id="buttonItens" contentDisplay="TOP" layoutX="177.0" layoutY="213.0" mnemonicParsing="false" onAction="#handleMenuItens" prefHeight="130.0" prefWidth="130.0" style="-fx-background-color: #5d0c9e; -fx-background-radius: 20;" text="Itens" textFill="white">
                <font>
