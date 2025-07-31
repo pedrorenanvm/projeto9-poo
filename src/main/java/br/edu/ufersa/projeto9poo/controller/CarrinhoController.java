@@ -12,12 +12,19 @@ import br.edu.ufersa.projeto9poo.models.services.AdicionalService;
 import br.edu.ufersa.projeto9poo.models.services.AdicionalServiceImpl;
 
 import br.edu.ufersa.projeto9poo.models.utils.AppError;
+import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -27,11 +34,11 @@ import java.util.stream.Collectors;
 
 public class CarrinhoController {
 
-    // --- Filtros (esquerda) ---
     @FXML private DatePicker filtroData;
     @FXML private TextField filtroProduto;
     @FXML private TextField filtroCliente;
     @FXML private Button btnBuscar;
+    @FXML private Button btnNota;
     @FXML private Button btnEditar;
     @FXML private Button btnExcluir;
 
@@ -44,7 +51,6 @@ public class CarrinhoController {
     @FXML private TableColumn<Carrinho, TipoEstado> colEstado;
     @FXML private TableColumn<Carrinho, String> colValorTotal;
 
-    // --- Formulário (direita) ---
     @FXML private ComboBox<Cliente> comboCliente;
     @FXML private ComboBox<Produto> comboProduto;
     @FXML private ComboBox<TipoPagamento> comboPagamento;
@@ -64,13 +70,12 @@ public class CarrinhoController {
 
     @FXML private Label appError;
 
-    // --- Services ---
+
     private final CarrinhoService carrinhoService = new CarrinhoServiceImpl();
     private final ClienteService clienteService = new ClienteServiceImpl();
     private final ProdutoService produtoService = new ProdutoServiceImpl();
     private final AdicionalService adicionalService = new AdicionalServiceImpl();
 
-    // Estado
     private Carrinho carrinhoSelecionado = null; // referência para edição
     private final ObservableList<ItemCarrinho> itensCarrinho = FXCollections.observableArrayList();
 
@@ -82,7 +87,7 @@ public class CarrinhoController {
         configurarColunas();
         configurarSpinnerQuantidade();
         configurarListasECombos();
-        configurarRenderizacaoCombosELista();   // <-- NOVO (mostra nome em vez de @hash)
+        configurarRenderizacaoCombosELista();
         configurarEventos();
 
         carregarCarrinhos();
@@ -92,17 +97,25 @@ public class CarrinhoController {
         filtroProduto.textProperty().addListener((obs, o, n) -> buscarCarrinhos());
         filtroData.valueProperty().addListener((obs, o, n) -> buscarCarrinhos());
 
-        // Placeholders (opcionais):
+        if (btnNota != null) {
+            btnNota.setDisable(true);
+        }
+        if (tabelaCarrinhos != null) {
+            tabelaCarrinhos.getSelectionModel()
+                    .selectedItemProperty()
+                    .addListener((obs, oldSel, newSel) -> {
+                        if (btnNota != null) btnNota.setDisable(newSel == null);
+                    });
+        }
+
         tabelaCarrinhos.setPlaceholder(new Label("Nenhum carrinho encontrado."));
         tabelaItens.setPlaceholder(new Label("Nenhum item no carrinho."));
         listaAdicionais.setPlaceholder(new Label("Nenhum adicional disponível."));
 
-        // Define o valueFactory do Spinner aqui (evita o bug do FXML)
         spinnerQuantidade.setValueFactory(
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1)
         );
 
-        // Garante apenas números no editor do Spinner (opcional)
         spinnerQuantidade.getEditor().textProperty().addListener((obs, old, val) -> {
             if (!val.matches("\\d*")) {
                 spinnerQuantidade.getEditor().setText(val.replaceAll("[^\\d]", ""));
@@ -110,12 +123,8 @@ public class CarrinhoController {
         });
     }
 
-    // ---------------------------
-    // Configuração de UI
-    // ---------------------------
-
     private void configurarColunas() {
-        // Tabela de carrinhos (esquerda)
+
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         colCliente.setCellValueFactory(data -> {
@@ -179,10 +188,9 @@ public class CarrinhoController {
     }
 
     private void configurarSpinnerQuantidade() {
-        // Define valueFactory no código (evita problemas no Scene Builder)
         spinnerQuantidade.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1));
         spinnerQuantidade.setEditable(true);
-        // Apenas dígitos
+
         spinnerQuantidade.getEditor().textProperty().addListener((obs, old, val) -> {
             if (!val.matches("\\d*")) {
                 spinnerQuantidade.getEditor().setText(val.replaceAll("[^\\d]", ""));
@@ -191,12 +199,10 @@ public class CarrinhoController {
     }
 
     private void configurarListasECombos() {
-        // Enums
         comboPagamento.setItems(FXCollections.observableArrayList(TipoPagamento.values()));
         comboEstado.setItems(FXCollections.observableArrayList(TipoEstado.values()));
         comboEstado.getSelectionModel().select(TipoEstado.AGUARDANDO_PAGAMENTO);
 
-        // Cliente / Produto / Adicionais (carrega do service)
         try {
             List<Cliente> clientes = clienteService.buscarTodos();
             comboCliente.setItems(FXCollections.observableArrayList(clientes));
@@ -219,15 +225,13 @@ public class CarrinhoController {
             AppError.erro("Falha ao carregar adicionais.");
         }
 
-        // Máscara monetária
         aplicarMascaraMonetaria(txtPrecoUnidade);
     }
 
     private void configurarEventos() {
-        // Tabela de carrinhos: seleção
+
         tabelaCarrinhos.setOnMouseClicked(e -> selecionarCarrinhoNaTabela());
 
-        // Botões (mesmo padrão do ClienteController)
         btnBuscar.setOnAction(e -> buscarCarrinhos());
         btnEditar.setOnAction(e -> preencherFormularioParaEdicao());
         btnExcluir.setOnAction(e -> excluirCarrinho());
@@ -235,18 +239,11 @@ public class CarrinhoController {
         btnSalvarCarrinho.setOnAction(e -> salvarCarrinho());
         btnCancelarCarrinho.setOnAction(e -> cancelarEdicao());
 
-        // Botão "Adicionar Item ao Carrinho": já está no FXML; se quiser por código:
-        // btnAdicionarCarrinho.setOnAction(e -> adicionarItemCarrinho());
     }
-
-    // ---------------------------
-    // Fluxos principais
-    // ---------------------------
-
     private void carregarCarrinhos() {
         try {
             List<Carrinho> lista = carrinhoService.buscarTodos();
-            // Ordena por data desc, depois id desc (ajuste a seu gosto)
+
             lista = lista.stream()
                     .sorted(Comparator.comparing(Carrinho::getData).reversed()
                             .thenComparing(Carrinho::getId).reversed())
@@ -296,7 +293,41 @@ public class CarrinhoController {
             AppError.limpar();
         }
     }
+    @FXML
+    private void abrirNota() {
+        Carrinho selecionado = tabelaCarrinhos.getSelectionModel().getSelectedItem();
+        if (selecionado == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("Nenhum carrinho selecionado");
+            alert.setContentText("Selecione um carrinho na tabela para visualizar a nota.");
+            alert.showAndWait();
+            return;
+        }
 
+        Estado.pegarInstancia().setCarrinhoNota(selecionado);
+
+        try {
+            Parent root = FXMLLoader.load(
+                    getClass().getResource("/br/edu/ufersa/projeto9poo/view/Nota.fxml")
+            );
+
+            Stage stage = new Stage();
+            stage.setTitle("Nota do Carrinho #" + selecionado.getId());
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(btnNota.getScene().getWindow());
+
+            stage.setOnHidden(e -> Estado.pegarInstancia().setCarrinhoNota(null));
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Erro ao abrir a Nota");
+            alert.setContentText("Não foi possível carregar a tela de Nota.\n" + e.getMessage());
+            alert.showAndWait();
+        }
+    }
     private void preencherFormularioParaEdicao() {
         if (carrinhoSelecionado == null) {
             AppError.erro("Selecione um carrinho na tabela para editar.");
@@ -310,7 +341,6 @@ public class CarrinhoController {
         }
         carrinhoSelecionado = carrinhoDoBanco.get();
 
-        // Preenche o formulário com o selecionado
         comboCliente.getSelectionModel().select(carrinhoSelecionado.getCliente());
         comboPagamento.getSelectionModel().select(carrinhoSelecionado.getPagamento());
         comboEstado.getSelectionModel().select(carrinhoSelecionado.getEstado());
@@ -318,7 +348,7 @@ public class CarrinhoController {
         if (carrinhoSelecionado.getItens() != null) {
             itensCarrinho.setAll(new ArrayList<>(carrinhoSelecionado.getItens()));
         } else {
-            itensCarrinho.clear(); // Se não houver itens, limpa a lista da UI
+            itensCarrinho.clear();
         }
         AppError.limpar();
     }
@@ -362,19 +392,14 @@ public class CarrinhoController {
         ItemCarrinho item = new ItemCarrinho();
         item.setProduto(produto);
 
-        // CÓPIA independente da seleção atual (evita problemas ao alterar seleção depois)
         List<Adicional> selecionados = List.copyOf(listaAdicionais.getSelectionModel().getSelectedItems());
         item.setAdicionais(selecionados);
 
         item.setQuantidade(qtd);
         item.setPrecoUnidade(precoUnidade);
 
-        // O item ainda não tem um carrinho associado, isso será feito no momento de salvar
-        // item.setCarrinho(carrinho);
-
         itensCarrinho.add(item);
 
-        // reset campos
         spinnerQuantidade.getValueFactory().setValue(1);
         txtPrecoUnidade.clear();
         listaAdicionais.getSelectionModel().clearSelection();
@@ -395,7 +420,6 @@ public class CarrinhoController {
 
     @FXML
     private void salvarCarrinho() {
-        // Validações (mantém as existentes)
         Cliente cliente = comboCliente.getValue();
         if (cliente == null) {
             AppError.erro("Selecione um cliente.");
@@ -422,34 +446,26 @@ public class CarrinhoController {
         try {
             Carrinho carrinhoParaSalvar;
 
-            // Verifica se é edição ou novo carrinho
             boolean isEdicao = (carrinhoSelecionado != null && carrinhoSelecionado.getId() != 0);
 
             if (isEdicao) {
-                // Se for edição, busca o carrinho do banco para garantir que é uma entidade gerenciada
-                // e que todos os dados (incluindo itens) estão carregados.
                 Optional<Carrinho> optCarrinhoExistente = carrinhoService.buscarPorId(carrinhoSelecionado.getId());
                 if (optCarrinhoExistente.isEmpty()) {
                     throw new IllegalArgumentException("Carrinho selecionado para edição não encontrado no banco de dados.");
                 }
                 carrinhoParaSalvar = optCarrinhoExistente.get();
-                // A data não deve ser alterada na edição, apenas para novos carrinhos
+
             } else {
                 carrinhoParaSalvar = new Carrinho();
-                carrinhoParaSalvar.setData(LocalDate.now()); // Data definida apenas para novos carrinhos
+                carrinhoParaSalvar.setData(LocalDate.now());
             }
 
-            // Define propriedades básicas
             carrinhoParaSalvar.setCliente(cliente);
             carrinhoParaSalvar.setPagamento(pagamento);
-            carrinhoParaSalvar.setEstado(estado); // <-- Estado agora será atualizado na entidade gerenciada
+            carrinhoParaSalvar.setEstado(estado);
 
-            // Prepara os itens para o carrinhoParaSalvar
-            // A lógica de setItens na entidade Carrinho já lida com a associação bidirecional
-            // e a limpeza/adição correta da coleção.
-            carrinhoParaSalvar.setItens(new ArrayList<>(itensCarrinho)); // Passa uma cópia da ObservableList
+            carrinhoParaSalvar.setItens(new ArrayList<>(itensCarrinho));
 
-            // Salva usando o service
             if (isEdicao) {
                 carrinhoService.editar(carrinhoParaSalvar);
                 AppError.sucesso("Carrinho atualizado com sucesso!");
@@ -460,7 +476,6 @@ public class CarrinhoController {
                 System.out.println("DEBUG: Carrinho cadastrado");
             }
 
-            // Limpa estado e recarrega
             carregarCarrinhos();
             novoCarrinho();
 
@@ -491,16 +506,12 @@ public class CarrinhoController {
         novoCarrinho();
     }
 
-    // ---------------------------
-    // Métodos utilitários
-    // ---------------------------
     private void aplicarMascaraMonetaria(TextField textField) {
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.isEmpty()) {
                 return;
             }
 
-            // Remove tudo que não for dígito
             String apenasNumeros = newValue.replaceAll("[^\\d]", "");
 
             if (apenasNumeros.isEmpty()) {
@@ -508,17 +519,15 @@ public class CarrinhoController {
                 return;
             }
 
-            // Converte para long para manipular como centavos
             long centavos;
             try {
                 centavos = Long.parseLong(apenasNumeros);
             } catch (NumberFormatException e) {
-                // Se o número for muito grande, mantém o valor anterior
+
                 textField.setText(oldValue);
                 return;
             }
 
-            // Formata como moeda brasileira
             DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("pt", "BR"));
             symbols.setDecimalSeparator(',');
             symbols.setGroupingSeparator('.');
@@ -526,16 +535,13 @@ public class CarrinhoController {
 
             String valorFormatado = "R$ " + df.format(centavos / 100.0);
 
-            // Evita loop infinito verificando se o valor já está correto
             if (!valorFormatado.equals(newValue)) {
                 textField.setText(valorFormatado);
 
-                // Posiciona o cursor no final
                 textField.positionCaret(valorFormatado.length());
             }
         });
 
-        // Define um placeholder
         textField.setPromptText("R$ 0,00");
     }
 
@@ -550,9 +556,9 @@ public class CarrinhoController {
     private Long parsePreco(String texto) {
         if (texto == null || texto.trim().isEmpty()) return null;
         try {
-            // Remove R$, espaços, e substitui vírgula por ponto para parse
+
             String limpo = texto.replace("R$", "").replace(" ", "").replace(".", "").replace(",", ".").trim();
-            // Multiplica por 100 para converter para centavos (Long)
+
             return (long) (Double.parseDouble(limpo) * 100);
         } catch (NumberFormatException e) {
             return null;
@@ -564,7 +570,7 @@ public class CarrinhoController {
     }
 
     private void configurarRenderizacaoCombosELista() {
-        // Renderização para ComboBox de Cliente
+
         comboCliente.setCellFactory(lv -> new ListCell<Cliente>() {
             @Override
             protected void updateItem(Cliente item, boolean empty) {
@@ -580,7 +586,6 @@ public class CarrinhoController {
             }
         });
 
-        // Renderização para ComboBox de Produto
         comboProduto.setCellFactory(lv -> new ListCell<Produto>() {
             @Override
             protected void updateItem(Produto item, boolean empty) {
@@ -596,7 +601,6 @@ public class CarrinhoController {
             }
         });
 
-        // Renderização para ListView de Adicionais
         listaAdicionais.setCellFactory(lv -> new ListCell<Adicional>() {
             @Override
             protected void updateItem(Adicional item, boolean empty) {

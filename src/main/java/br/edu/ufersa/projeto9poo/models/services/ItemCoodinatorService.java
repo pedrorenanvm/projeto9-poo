@@ -16,7 +16,7 @@ public interface ItemCoodinatorService {
 
     List<Item> buscarTodos();
 
-    long QuantidadeSemEstoque();
+    long quantidadeSemEstoque();
 }
 
 
