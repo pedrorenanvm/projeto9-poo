@@ -1,10 +1,10 @@
 package br.edu.ufersa.projeto9poo.controller;
 
 import br.edu.ufersa.projeto9poo.models.entities.Adicional;
-import br.edu.ufersa.projeto9poo.models.entities.Cliente;
 import br.edu.ufersa.projeto9poo.models.entities.Item;
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
 import br.edu.ufersa.projeto9poo.models.services.ItemCoordinatorServiceImpl;
+import br.edu.ufersa.projeto9poo.util.Estado;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +14,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.List;
 
 public class ItemController {
+    @FXML
+    private Button botaoCriar;
     @FXML
     private TableView<Item> tableViewItem;
     @FXML
@@ -42,13 +44,14 @@ public class ItemController {
     private CheckBox checkBoxFalta;
 
 
-
     private ObservableList<Item> observableListItens;
 
     private final ItemCoordinatorServiceImpl coordinatorService = new ItemCoordinatorServiceImpl();
 
     @FXML
     private void initialize() {
+
+        botaoCriar.setDisable(!Estado.pegarInstancia().isAdmin());
 
         comboBoxItemTipo.setItems(FXCollections.observableArrayList("PRODUTO", "ADICIONAL"));
         comboBoxItemTipo.setValue("PRODUTO"); //Valor padrão
@@ -65,6 +68,7 @@ public class ItemController {
             carregarLista();
         });
     }
+
     private void carregarLista() {
         String filtroTexto = inputItem.getText().trim();
         boolean filtrarAdicionais = checkBoxAdicionais.isSelected();
@@ -75,11 +79,11 @@ public class ItemController {
 
         List<Item> itensFiltrados = todosItens.stream()
                 .filter(item -> {
-                    boolean tipoItem = ((filtrarAdicionais && item instanceof Adicional)||
-                        (filtrarProdutos && item instanceof Produto)||
-                        (!filtrarAdicionais && !filtrarProdutos));
+                    boolean tipoItem = ((filtrarAdicionais && item instanceof Adicional) ||
+                            (filtrarProdutos && item instanceof Produto) ||
+                            (!filtrarAdicionais && !filtrarProdutos));
 
-                    boolean tipoFalta=(!filtrarFalta || !item.isEstoque());
+                    boolean tipoFalta = (!filtrarFalta || !item.isEstoque());
 
                     return tipoItem && tipoFalta;
                 })
@@ -125,10 +129,10 @@ public class ItemController {
                 carregarLista();
             } catch (NumberFormatException e) {
                 exibirErro("Preço inválido: informe um número.");
-            } catch (RuntimeException e){
+            } catch (RuntimeException e) {
                 exibirErro(e.getMessage());
             }
-        }else {
+        } else {
             exibirErro("Nenhum Item selecionado.");
         }
 
@@ -145,7 +149,7 @@ public class ItemController {
         } else {
             exibirErro("Nenhum item selecionado.");
         }
-            carregarLista();
+        carregarLista();
     }
 
     private void exibirErro(String mensagem) {
