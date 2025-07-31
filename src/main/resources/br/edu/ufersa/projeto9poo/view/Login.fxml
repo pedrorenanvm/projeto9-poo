@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/24.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.projeto9poo.controller.LoginController">
+    <children>
+        <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="70.0" prefWidth="800.0"
+              style="-fx-background-color: #8A2BE2;" AnchorPane.bottomAnchor="530.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="60.0" fitWidth="65.0" layoutX="476.0" layoutY="25.0" nodeOrientation="INHERIT"
+                           pickOnBounds="true" preserveRatio="true" x="476.0" y="25.0">
+                    <image>
+                        <Image url="@../../../../../assets/Logo.png"/>
+                    </image>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </ImageView>
+                <Label text="AÇAÍ DA JU" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="24.0"/>
+                    </font>
+                </Label>
+            </children>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </HBox>
+        <Label layoutX="344.0" layoutY="90.0" prefHeight="75.0" prefWidth="111.0" text="LOGIN" textFill="WHITE"
+               AnchorPane.bottomAnchor="434.8" AnchorPane.leftAnchor="344.0" AnchorPane.rightAnchor="344.8">
+            <font>
+                <Font size="36.0"/>
+            </font>
+        </Label>
+        <VBox alignment="CENTER" layoutX="150.0" layoutY="165.0" prefHeight="300.0" prefWidth="500.0"
+              style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+            <padding>
+                <Insets top="20.0"/>
+            </padding>
+            <children>
+                <HBox alignment="CENTER" prefHeight="66.0" prefWidth="488.0" style="-fx-background-color: #252525;">
+                    <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../../assets/user.png"/>
+                            </image>
+                        </ImageView>
+                        <TextField fx:id="txtUsuario" alignment="CENTER" prefHeight="35.0" prefWidth="250.0"
+                                   promptText="usuário" style="-fx-background-radius: 15;">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </TextField>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="60.0" prefWidth="380.0" style="-fx-background-color: #252525;">
+                    <children>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../../assets/lock.png"/>
+                            </image>
+                        </ImageView>
+                        <PasswordField fx:id="txtSenha" alignment="CENTER" prefHeight="35.0" prefWidth="250.0"
+                                       promptText="senha" style="-fx-background-radius: 15;">
+                            <font>
+                                <Font size="14.0"/>
+                            </font>
+                        </PasswordField>
+                    </children>
+                </HBox>
+                <Button fx:id="btnEntrar" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#handleLogin"
+                        style="-fx-background-color: #8A2BE2; -fx-text-fill: WHITE; -fx-background-radius: 8; -fx-font-weight: BOLD;"
+                        text="Entrar">
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

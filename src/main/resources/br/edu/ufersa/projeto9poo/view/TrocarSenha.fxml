@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="768.0" prefWidth="1158.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.projeto9poo.controller.TrocarSenhaController">
+    <children>
+        <GridPane layoutX="395.0" layoutY="319.0" prefHeight="131.0" prefWidth="406.0" style="-fx-background-color: #fff; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 20px;">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Senha antiga:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+                <Label text="Nova senha:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+                <Label text="Verificar:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+                <PasswordField fx:id="inputSenhaAntiga" GridPane.columnIndex="1" />
+                <PasswordField fx:id="inputSenhaNova" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <PasswordField fx:id="inputVerificar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </GridPane>
+        <Button layoutX="554.0" layoutY="474.0" mnemonicParsing="false" onAction="#trocarSenha" style="-fx-background-color: #8a2be2; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-border-color: #000;" text="Trocar" textFill="WHITE" AnchorPane.topAnchor="480.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Button>
+    </children>
+</AnchorPane>
