@@ -41,9 +41,9 @@ public class NotaController {
     @FXML
     private TableColumn<ItemCarrinho, Integer> columnQuantidade;
     @FXML
-    private TableColumn<ItemCarrinho, Long> columnPreco;
+    private TableColumn<ItemCarrinho, String> columnPreco;
     @FXML
-    private TableColumn<ItemCarrinho, Long> columnTotal;
+    private TableColumn<ItemCarrinho, String> columnTotal;
 
     private final DateTimeFormatter fmtData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private final NumberFormat fmtMoeda = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
@@ -61,11 +61,16 @@ public class NotaController {
             return new ReadOnlyStringWrapper(nome);
         });
         columnQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        columnPreco.setCellValueFactory(new PropertyValueFactory<>("precoUnidade"));
-        columnTotal.setCellValueFactory(param -> {
-            ItemCarrinho item = param.getValue();
-            return new ReadOnlyObjectWrapper<Long>(item.precoTotal());
+        columnPreco.setCellValueFactory(param -> {
+            long precoCentavos = param.getValue().getPrecoUnidade();
+            return new ReadOnlyStringWrapper(fmtMoeda.format(precoCentavos / 100.0));
         });
+
+        columnTotal.setCellValueFactory(param -> {
+            long totalCentavos = param.getValue().precoTotal();
+            return new ReadOnlyStringWrapper(fmtMoeda.format(totalCentavos / 100.0));
+        });
+
 
         carregar();
     }
@@ -82,7 +87,7 @@ public class NotaController {
         labelData.setText(carrinho.getData().format(fmtData));
         labelEstado.setText(carrinho.getEstado().toString());
         labelTipoPagamento.setText(carrinho.getPagamento().toString());
-        labelTotal.setText(fmtMoeda.format(carrinho.precoTotal()));
+        labelTotal.setText(fmtMoeda.format(carrinho.precoTotal() / 100.0));
     }
 
 }

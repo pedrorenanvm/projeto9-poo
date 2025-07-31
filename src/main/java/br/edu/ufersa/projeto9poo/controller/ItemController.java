@@ -5,13 +5,16 @@ import br.edu.ufersa.projeto9poo.models.entities.Item;
 import br.edu.ufersa.projeto9poo.models.entities.Produto;
 import br.edu.ufersa.projeto9poo.models.services.ItemCoordinatorServiceImpl;
 import br.edu.ufersa.projeto9poo.util.Estado;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ItemController {
     @FXML
@@ -23,7 +26,7 @@ public class ItemController {
     @FXML
     private TableColumn<Item, String> tableColumnItemNome;
     @FXML
-    private TableColumn<Item, Long> tableColumnItemPreco;
+    private TableColumn<Item, String> tableColumnItemPreco;
     @FXML
     private Label labelItemId;
     @FXML
@@ -58,7 +61,12 @@ public class ItemController {
 
         tableColumnItemId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableColumnItemNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        tableColumnItemPreco.setCellValueFactory(new PropertyValueFactory<>("preco"));
+        tableColumnItemPreco.setCellValueFactory(param -> {
+            long precoCentavos = param.getValue().getPreco();
+            NumberFormat fmtMoeda = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+            return new ReadOnlyStringWrapper(fmtMoeda.format(precoCentavos / 100.0));
+        });
+
 
         carregarLista();
 
