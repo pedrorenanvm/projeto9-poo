@@ -1,5 +1,6 @@
 package br.edu.ufersa.projeto9poo.controller;
 
+import br.edu.ufersa.projeto9poo.models.builders.ClienteBuilder;
 import br.edu.ufersa.projeto9poo.models.entities.Cliente;
 import br.edu.ufersa.projeto9poo.models.services.ClienteService;
 import br.edu.ufersa.projeto9poo.models.services.ClienteServiceImpl;
@@ -96,7 +97,12 @@ public class ClienteController {
         }
 
         try {
-            Cliente novoCliente = new Cliente(nome, endereco, telefone);
+            Cliente novoCliente = ClienteBuilder.builder()
+                    .nome(nome)
+                    .endereco(endereco)
+                    .telefone(telefone)
+                    .build();
+
             clienteService.cadastrar(novoCliente);
             AppError.sucesso("Cliente cadastrado com sucesso!");
             limparCampos();
