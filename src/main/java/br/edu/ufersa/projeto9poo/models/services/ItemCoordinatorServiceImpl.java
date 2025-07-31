@@ -69,7 +69,7 @@ public class ItemCoordinatorServiceImpl implements ItemCoodinatorService {
     }
 
     @Override
-    public long QuantidadeSemEstoque() {
+    public long quantidadeSemEstoque() {
         return buscarTodos().stream().filter(i -> !i.isEstoque()).count();
     }
 }

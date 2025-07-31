@@ -62,7 +62,7 @@ public class HomeController {
         List<Carrinho> carrinhosHoje = carrinhoService.buscarTodosHoje();
 
         labelValor.setText(String.valueOf(carrinhoService.somaPrecoHoje()));
-        labelItem.setText(String.valueOf(itemCoodinatorService.QuantidadeSemEstoque()));
+        labelItem.setText(String.valueOf(itemCoodinatorService.quantidadeSemEstoque()));
         labelPedido.setText(String.valueOf(carrinhoService.quantidadeAberto()));
 
         ObservableList<Carrinho> observableCarrinhosHoje = FXCollections.observableList(carrinhosHoje);
