@@ -1,6 +1,9 @@
 package br.edu.ufersa.projeto9poo.controller;
 
+import br.edu.ufersa.projeto9poo.models.entities.Adicional;
+import br.edu.ufersa.projeto9poo.models.entities.Cliente;
 import br.edu.ufersa.projeto9poo.models.entities.Item;
+import br.edu.ufersa.projeto9poo.models.entities.Produto;
 import br.edu.ufersa.projeto9poo.models.services.ItemCoordinatorServiceImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +34,14 @@ public class ItemController {
     private ComboBox<String> comboBoxItemTipo;
     @FXML
     private TextField inputItem;
+    @FXML
+    private CheckBox checkBoxProdutos;
+    @FXML
+    private CheckBox checkBoxAdicionais;
+    @FXML
+    private CheckBox checkBoxFalta;
+
+
 
     private ObservableList<Item> observableListItens;
 
@@ -50,14 +61,31 @@ public class ItemController {
 
         tableViewItem.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldItem, newItem) -> selecionarTableViewItem(newItem));
-        inputItem.setOnAction(actionEvent -> {
+        inputItem.textProperty().addListener((observable, oldValue, newValue) -> {
             carregarLista();
         });
     }
-
     private void carregarLista() {
-        List<Item> itens = coordinatorService.buscarTodos(inputItem.getText());
-        observableListItens = FXCollections.observableArrayList(itens);
+        String filtroTexto = inputItem.getText().trim();
+        boolean filtrarAdicionais = checkBoxAdicionais.isSelected();
+        boolean filtrarFalta = checkBoxFalta.isSelected();
+        boolean filtrarProdutos = checkBoxProdutos.isSelected();
+
+        List<Item> todosItens = coordinatorService.buscarTodos(filtroTexto);
+
+        List<Item> itensFiltrados = todosItens.stream()
+                .filter(item -> {
+                    boolean tipoItem = ((filtrarAdicionais && item instanceof Adicional)||
+                        (filtrarProdutos && item instanceof Produto)||
+                        (!filtrarAdicionais && !filtrarProdutos));
+
+                    boolean tipoFalta=(!filtrarFalta || !item.isEstoque());
+
+                    return tipoItem && tipoFalta;
+                })
+                .toList();
+
+        observableListItens = FXCollections.observableArrayList(itensFiltrados);
         tableViewItem.setItems(observableListItens);
     }
 

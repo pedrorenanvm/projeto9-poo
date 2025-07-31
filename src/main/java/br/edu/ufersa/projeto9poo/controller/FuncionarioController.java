@@ -38,7 +38,7 @@ public class FuncionarioController {
         table.getSelectionModel().selectedItemProperty().addListener((
                 (observableValue, antido, novo) -> selecionarItem(novo)
         ));
-        inputBuscar.setOnAction(e -> {
+        inputBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
             recarregarLista();
         });
     }
